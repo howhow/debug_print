@@ -1,0 +1,1259 @@
+cscope 15 $HOME/Work/test_code/test_print_improve -q 0000000110 0000006529
+	@/home/haochen/Work/test_code/test_print_improve/debug/debug.c
+
+12 
+	~<°dlib.h
+>
+
+13 
+	~<°döt.h
+>
+
+14 
+	~<°dio.h
+>
+
+15 
+	~<uni°d.h
+>
+
+16 
+	~<°rög.h
+>
+
+17 
+	~<°d¨g.h
+>
+
+18 
+	~"comm⁄.h
+"
+
+19 
+	~"debug.h
+"
+
+21 
+	#DBG_BUFFER_SIZE
+ 1024
+
+	)
+
+23 
+UINT32
+ 
+	ggDbg_mask
+;
+
+24 
+UINT32
+ 
+	ggDbg_Àvñ
+;
+
+26 
+	#BIT_SET
+(
+pos
+Ë(1<<pos)
+
+	)
+
+28 c⁄° * 
+	ggΩ_«mes
+[]={
+
+36 
+	#DBG_MAX
+ ((
+gΩ_«mes
+Ë/ (gΩ_«mes[0]))
+
+	)
+
+38 c⁄° *
+	g˛rSåögs
+[] = {
+
+50 #i‚de‡
+touµî
+
+
+51 
+	#touµî
+(
+c
+Ë(((¯> 0x60Ë&& (¯< 0x7B)Ë? (¯- 0x20Ë: c)
+
+	)
+
+54 #i‚de‡
+°ricmp
+
+
+55 
+	$°ricmp
+(c⁄° *
+s1
+, c⁄° *
+s2
+)
+
+57 *
+s1
+ && *
+s2
+)
+
+59 if(
+	`touµî
+(*
+s1
+Ë!touµî(*
+s2
+))
+
+60  
+	`touµî
+(*
+s1
+Ë-Åouµî(*
+s2
+);
+
+62 
+s1
+++;
+
+63 
+s2
+++;
+
+65  
+	`touµî
+(*
+s1
+Ë-Åouµî(*
+s2
+);
+
+66 
+	}
+}
+
+70 
+	$Dbg_Cfg
+(c⁄° 
+debug
+, c⁄° *
+gΩ
+)
+
+72 
+UINT32
+ 
+vÆ
+=0;
+
+74 if(
+gΩ
+ !
+NULL
+)
+
+76 
+i
+;
+
+78 
+i
+ = 0; i<
+DBG_MAX
+; i++)
+
+80 if(
+	`°ricmp
+(
+gΩ
+, 
+gΩ_«mes
+[
+i
+]) == 0)
+
+83 
+vÆ
+ = (1<<
+i
+);
+
+90 
+vÆ
+ = (
+UINT32
+)-1;
+
+93 if(
+debug
+)
+
+94 
+gDbg_mask
+ |
+vÆ
+;
+
+96 
+gDbg_mask
+ &~
+vÆ
+;
+
+97 
+	}
+}
+
+99 
+	$Dbg_Cfg
+(
+BOOL
+ 
+gΩ_íabÀ
+, 
+dbg_gΩ_e
+ 
+gΩ
+, 
+dbg_Àvñ_e
+ 
+Àvñ
+)
+
+101 
+UINT32
+ 
+vÆ
+ = 0x0;
+
+103 if(
+gΩ
+ > 
+öô_gΩ
+ && gΩ < 
+max_gΩ
+)
+
+106 
+vÆ
+ = (1<<
+gΩ
+);
+
+109 if(
+gΩ_íabÀ
+)
+
+111 
+gDbg_mask
+ |
+vÆ
+;
+
+115 
+gDbg_mask
+ &~
+vÆ
+;
+
+118 
+gDbg_Àvñ
+ = 
+Àvñ
+;
+
+119 
+	}
+}
+
+122 #ifde‡
+_DEBUG_
+
+
+123 
+BOOL
+ 
+	$Dbg_IsGΩE«bÀd
+(
+dbg_gΩ_e
+ 
+gΩ
+)
+
+125 if(
+	`BIT_SET
+(
+gΩ
+Ë& 
+gDbg_mask
+)
+
+126  
+TRUE
+;
+
+128  
+FALSE
+;
+
+129 
+	}
+}
+
+131 
+BOOL
+ 
+	$Dbg_IsLevñE«bÀd
+(
+dbg_Àvñ_e
+ 
+Àvñ
+)
+
+133 i‡(
+Àvñ
+ >
+gDbg_Àvñ
+)
+
+135  
+TRUE
+;
+
+139  
+FALSE
+;
+
+141 
+	}
+}
+
+144 
+	$DBGv•röt
+(
+FILE
+ *
+°ªam
+, c⁄° *
+f‹m©
+, 
+va_li°
+ 
+¨gs
+)
+
+146 
+dbgBUF
+[
+DBG_BUFFER_SIZE
+];
+
+147 
+cou¡
+ = 0;
+
+148 c⁄° *
+cﬁ‹1
+ = (*)"";
+
+149 c⁄° *
+cﬁ‹2
+ = (*)"";
+
+157 
+PRT_FUNC_PTR
+ 
+pFunc
+ = (PRT_FUNC_PTR)
+Ârötf
+;
+
+159 if(*
+f‹m©
+ == '!')
+
+162 if((
+f‹m©
+[0] == '^') && (format[2] == '^'))
+
+164 
+cﬁ‹Index
+ = -1;
+
+165 
+f‹m©
+[1])
+
+167 'k': 
+cﬁ‹Index
+ = 0; ;
+
+168 'r': 
+cﬁ‹Index
+ = 1; ;
+
+169 'g': 
+cﬁ‹Index
+ = 2; ;
+
+170 'y': 
+cﬁ‹Index
+ = 3; ;
+
+171 'b': 
+cﬁ‹Index
+ = 4; ;
+
+172 'p': 
+cﬁ‹Index
+ = 5; ;
+
+173 'c': 
+cﬁ‹Index
+ = 6; ;
+
+174 'a': 
+cﬁ‹Index
+ = 7; ;
+
+176 
+cﬁ‹Index
+ = 0; ;
+
+179 if(
+cﬁ‹Index
+ >= 0)
+
+181 if(!(
+f‹m©
+[1] & 0x20))
+
+183 
+cﬁ‹Index
+ += 8;
+
+185 
+f‹m©
+ += 3;
+
+186 
+cﬁ‹1
+ = 
+˛rSåögs
+[
+cﬁ‹Index
+];
+
+187 
+cﬁ‹2
+ = 
+˛rSåögs
+[8];
+
+191 
+cou¡
+ = 
+	`v¢¥ötf
+(&
+dbgBUF
+[0], 
+DBG_BUFFER_SIZE
+-14, 
+f‹m©
+, 
+¨gs
+);
+
+192 (*
+pFunc
+)(
+°ªam
+, "%s%s%s", 
+cﬁ‹1
+, 
+dbgBUF
+, 
+cﬁ‹2
+);
+
+194  
+cou¡
+;
+
+195 
+	}
+}
+
+197 
+	$va_≠rötOn
+(
+FILE
+ *
+°ªam
+, c⁄° *
+fmt
+, 
+va_li°
+ 
+¨gs
+)
+
+199  
+	`DBGv•röt
+(
+°ªam
+, 
+fmt
+, 
+¨gs
+);
+
+200 
+	}
+}
+
+202 
+	$DBG_PrötCﬁ‹
+(
+dbg_gΩ_e
+ 
+gΩ
+, 
+dbg_Àvñ_e
+ 
+Àvñ
+, 
+FILE
+ *
+°ªam
+, c⁄° *
+fmt
+, ...)
+
+204 
+cou¡
+ = 0;
+
+205 #ifde‡
+_DEBUG_
+
+
+206 if–
+	`Dbg_IsGΩE«bÀd
+(
+gΩ
+Ë&& 
+	`Dbg_IsLevñE«bÀd
+(
+Àvñ
+) )
+
+208 
+va_li°
+ 
+¨gs
+;
+
+210 
+	`va_°¨t
+(
+¨gs
+, 
+fmt
+);
+
+211 
+cou¡
+ = 
+	`va_≠rötOn
+(
+°ªam
+, 
+fmt
+, 
+¨gs
+);
+
+212 
+	`va_íd
+(
+¨gs
+);
+
+215  
+cou¡
+;
+
+216 
+	}
+}
+
+	@/home/haochen/Work/test_code/test_print_improve/debug/debug.h
+
+12 #i‚de‡
+_DEBUG_H_
+
+
+13 
+	#_DEBUG_H_
+
+
+	)
+
+15 #ifde‡
+__˝lu•lus
+
+
+19 
+	~<°dio.h
+>
+
+20 
+	~<°dlib.h
+>
+
+21 
+	~<uni°d.h
+>
+
+22 
+	~<°rög.h
+>
+
+24 
+	~"comm⁄.h
+"
+
+29 
+öô_gΩ
+ = 0x0,
+
+31 
+I2C
+,
+
+32 
+SPI
+,
+
+33 
+USIF
+,
+
+34 
+USB
+,
+
+36 
+max_gΩ
+ = 0xFFFF
+
+37 }
+	tdbg_gΩ_e
+;
+
+41 
+INFO
+ = 0x1,
+
+42 
+DEBUG
+,
+
+43 
+WARN
+,
+
+44 
+ALARM
+,
+
+45 
+ERROR
+,
+
+46 
+FATAL
+
+
+47 }
+	tdbg_Àvñ_e
+;
+
+50 (*
+PRT_FUNC_PTR
+)(
+	tFILE
+ *
+	t°ªam
+, c⁄° *
+	tfmt
+, ...);
+
+52 #ifde‡
+_DEBUG_
+
+
+53 
+	#STD_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...Ë
+	`DBG_PrötCﬁ‹
+(gΩ,Üevñ, 
+°dout
+, fmt, ##¨gs)
+
+	)
+
+54 
+	#ERR_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...Ë
+	`DBG_PrötCﬁ‹
+(gΩ,Üevñ, 
+°dîr
+, fmt, ##¨gs)
+
+	)
+
+55 
+	#DBG_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...Ë
+	`DBG_PrötCﬁ‹
+(gΩ,Üevñ, 
+°dîr
+, fmt, ##¨gs)
+
+	)
+
+57 
+	#STD_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...)
+
+	)
+
+58 
+	#ERR_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...)
+
+	)
+
+59 
+	#DBG_PRINT
+(
+gΩ
+, 
+Àvñ
+, 
+fmt
+, 
+¨gs
+...)
+
+	)
+
+62 
+DBG_PrötCﬁ‹
+(
+dbg_gΩ_e
+ 
+gΩ
+, 
+dbg_Àvñ_e
+ 
+Àvñ
+, 
+FILE
+ *
+°ªam
+, c⁄° *
+fmt
+, ...);
+
+64 
+Dbg_Cfg
+(
+BOOL
+ 
+gΩ_íabÀ
+, 
+dbg_gΩ_e
+ 
+gΩ
+, 
+dbg_Àvñ_e
+ 
+Àvñ
+);
+
+66 #ifde‡
+__˝lu•lus
+
+
+	@/home/haochen/Work/test_code/test_print_improve/debug/instrument.c
+
+11 
+	~<°dio.h
+>
+
+12 
+	~<°dlib.h
+>
+
+15 
+	$maö_c⁄°ru˘‹
+( )
+
+16 
+	`__©åibuã__
+ ((
+no_ö°rumít_fun˘i⁄
+, 
+c⁄°ru˘‹
+));
+
+18 
+	$maö_de°ru˘‹
+( )
+
+19 
+	`__©åibuã__
+ ((
+no_ö°rumít_fun˘i⁄
+, 
+de°ru˘‹
+));
+
+21 
+	$__cyg_¥ofûe_func_íãr
+( *, * )
+
+22 
+	`__©åibuã__
+ ((
+no_ö°rumít_fun˘i⁄
+));
+
+24 
+	$__cyg_¥ofûe_func_exô
+( *, * )
+
+25 
+	`__©åibuã__
+ ((
+no_ö°rumít_fun˘i⁄
+));
+
+28 
+FILE
+ *
+Â
+;
+
+31 
+	$maö_c⁄°ru˘‹
+( )
+
+33 
+Â
+ = 
+	`f›í
+( "trace.txt", "w" );
+
+34 i‡(
+Â
+ =
+NULL
+Ë
+	`exô
+(-1);
+
+35 
+	}
+}
+
+38 
+	$maö_dec⁄°ru˘‹
+( )
+
+40 
+	`f˛o£
+–
+Â
+ );
+
+41 
+	}
+}
+
+44 
+	$__cyg_¥ofûe_func_íãr
+–*
+this
+, *
+ˇŒsôe
+ )
+
+46 
+	`Ârötf
+(
+Â
+, "E%p\n", (*)
+this
+);
+
+47 
+	}
+}
+
+50 
+	$__cyg_¥ofûe_func_exô
+–*
+this
+, *
+ˇŒsôe
+ )
+
+52 
+	`Ârötf
+(
+Â
+, "X%p\n", (*)
+this
+);
+
+53 
+	}
+}
+
+	@/home/haochen/Work/test_code/test_print_improve/debug/uart_print.c
+
+	@/home/haochen/Work/test_code/test_print_improve/include/common.h
+
+10 #i‚de‡
+_COMMON_H_
+
+
+11 
+	#_COMMON_H_
+
+
+	)
+
+13 #ifde‡
+__˝lu•lus
+
+
+17 
+	~<°dlib.h
+>
+
+19 
+	#__FUNC__
+ 
+__FUNCTION__
+
+
+	)
+
+20 
+	#__L__
+ 
+__LINE__
+
+
+	)
+
+22 #i‚de‡
+UINT8
+
+
+23 
+	t__UINT8
+;
+
+24 
+	#UINT8
+ 
+__UINT8
+
+
+	)
+
+27 #i‚de‡
+UINT16
+
+
+28 
+	t__UINT16
+;
+
+29 
+	#UINT16
+ 
+__UINT16
+
+
+	)
+
+32 #i‚de‡
+UINT32
+
+
+33 
+	t__UINT32
+;
+
+34 
+	#UINT32
+ 
+__UINT32
+
+
+	)
+
+37 #i‚de‡
+UINT64
+
+
+38 
+	t__UINT64
+;
+
+39 
+	#UINT64
+ 
+__UINT64
+
+
+	)
+
+42 #i‚de‡
+BOOL
+
+
+43 
+	t__BOOL
+;
+
+44 
+	#BOOL
+ 
+__BOOL
+
+
+	)
+
+45 
+	#TRUE
+ 1
+
+	)
+
+46 
+	#FALSE
+ 0
+
+	)
+
+49 #ifde‡
+__˝lu•lus
+
+
+	@/home/haochen/Work/test_code/test_print_improve/root/main.c
+
+14 
+	~<°dio.h
+>
+
+15 
+	~<°dlib.h
+>
+
+16 
+	~<uni°d.h
+>
+
+17 
+	~<°rög.h
+>
+
+19 
+	~"comm⁄.h
+"
+
+20 
+	~"debug.h
+"
+
+22 #ifde‡
+_DEBUG_
+
+
+23 
+UINT32
+ 
+gDbg_mask
+;
+
+24 c⁄° *
+gΩ_«mes
+[];
+
+28 
+	#I2C_PRINT
+(
+Àvñ
+, 
+fmt
+, 
+¨gs
+...Ë
+	`DBG_PRINT
+(
+I2C
+,Üevñ, fmt, ##¨gs)
+
+	)
+
+30 
+	$maö
+–
+¨gc
+, *
+¨gv
+[])
+
+33 
+	`Dbg_Cfg
+(
+TRUE
+, 
+I2C
+, 
+FATAL
+);
+
+35 #ifde‡
+_DEBUG_
+
+
+36 
+	`¥ötf
+("Debug Mask: 0x%04X\n",
+gDbg_mask
+);
+
+39 
+	`I2C_PRINT
+(
+DEBUG
+, "^g^[%s]Åe°\n", 
+gΩ_«mes
+[
+I2C
+]);
+
+40 
+	`I2C_PRINT
+(
+DEBUG
+, "^g^[%s]Åe°\n", 
+gΩ_«mes
+[
+I2C
+]);
+
+41 
+	`I2C_PRINT
+(
+DEBUG
+, "^g^[%s]Åe°\n", 
+gΩ_«mes
+[
+I2C
+]);
+
+42 
+	`I2C_PRINT
+(
+DEBUG
+, "^g^[%s]Åe°\n", 
+gΩ_«mes
+[
+I2C
+]);
+
+43 
+	`I2C_PRINT
+(
+DEBUG
+, "^g^[%s]Åe°\n", 
+gΩ_«mes
+[
+I2C
+]);
+
+46 
+	}
+}
+
+	@
+1
+.
+0
+6
+383
+/home/haochen/Work/test_code/test_print_improve/debug/debug.c
+/home/haochen/Work/test_code/test_print_improve/debug/debug.h
+/home/haochen/Work/test_code/test_print_improve/debug/instrument.c
+/home/haochen/Work/test_code/test_print_improve/debug/uart_print.c
+/home/haochen/Work/test_code/test_print_improve/include/common.h
+/home/haochen/Work/test_code/test_print_improve/root/main.c
