@@ -24,9 +24,10 @@ $(OBJS): $(SRCS)
 
 .PHONY: clean
 clean:
-	@$(RM) -f $(LIB) $(OBJS)
+	@$(RM) -f $(LIB) $(OBJS) $(DEPS)
 	@$(RM) -f *.expand
 	@echo "    Remove Objects:   $(OBJS)"
+	@echo "    Remove depends:   $(DEPS)"
 	@echo "    Remove Libraries:  $(notdir $(LIB))"
 
 .PHONY: lint 
