@@ -2,7 +2,11 @@
 #
 # 	@Author:	How.Chen
 #	@Version:	2.0
-#	@Date:		28th/Aug/2012
+#	@Date:		25th/Jan/2017
+#				- V1.0
+#				- init commit
+#				-V2.0
+#				- add dependence check
 
 MAKE_DIR = $(PWD)
 

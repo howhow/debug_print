@@ -2,9 +2,15 @@
 #
 # 	@Author:	How.Chen
 #	@Version:	2.0
-#	@Date:		28th/Aug/2012
-#	@Note:		At V2.0, add generate library
-#				remove system print and customized
+#	@Date:		25th/Jan/2017
+#	@Note:		
+#				-V1.0
+#				- init commit
+#				- add generate library
+#				- remove system print and customized
+#
+#				V2.0
+#				- add dependence check
 
 MODULE = debug
 
