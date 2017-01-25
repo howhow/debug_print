@@ -1,71 +1,63 @@
-# General Makefile
-#
-# 	@Author:	How.Chen
-#	@Version:	2.0
-#	@Date:		28th/Aug/2012
+CC        := gcc
+LD        := gcc 
+COLOR_ON 	:= color
+COLOR_OFF	:=
 
-MAKE_DIR = $(PWD)
+PROGRAM = test_print
 
-ROOT_DIR	:= $(MAKE_DIR)/root 
-DRIVER_DIR	:= $(MAKE_DIR)/driver
-INCLUDE_DIR := $(MAKE_DIR)/include
-DEBUG_DIR	:= $(MAKE_DIR)/debug
-OUTPUT_DIR	:= $(MAKE_DIR)/output
-LIBS_DIR	:= $(OUTPUT_DIR)/libs
-OBJS_DIR	:= $(OUTPUT_DIR)/objs
-DEPS_DIR	:= $(OUTPUT_DIR)/deps
+MAKE_DIR	= $(PWD)
+MODULES		:= debug root
+SRC_DIR		:= $(addprefix $(MAKE_DIR)/,$(MODULES))
+BUILD_DIR	:= $(MAKE_DIR)/output
 
-INC_SRCH_PATH := 
-INC_SRCH_PATH += -I$(ROOT_DIR)
-INC_SRCH_PATH += -I$(DRIVER_DIR) 
-INC_SRCH_PATH += -I$(INCLUDE_DIR)
-INC_SRCH_PATH += -I$(DEBUG_DIR)
+SRC			:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
+OBJ			:= $(patsubst %.c,%.o,$(SRC))
+DEP			:= $(patsubst %.c,%.d,$(SRC))
 
-LIB_SRCH_PATH :=
-LIB_SRCH_PATH += -L$(LIBS_DIR)
-
-
-COLOR_ON = color
-COLOR_OFF = 
-CC = $(COLOR_ON)gcc
-#CC = $(COLOR_OFF)gcc
-LD = ld
-
-LINT = splint
-
-CLIBS :=
-CLIBS += -ldebug
-#LIBS += -ldriver -lmw -lm -lpthread
+INCLUDES	:= $(addprefix -I,$(SRC_DIR))
+INCLUDES	+= -I$(MAKE_DIR)/include
 
 CFLAGS :=
-CFLAGS += $(INC_SRCH_PATH) $(LIB_SRCH_PATH) 
-CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign
+CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign -Werror 
 CFLAGS += -D_DEBUG_ -D_REENTRANT
+CFLAGS += -std=c99
+TC_DEF :=
 
-LDFLAGS :=
+vpath %.c $(SRC_DIR)
 
-export MAKE_DIR CC LD CFLAGS LDFLAGS CLIBS LINT INC_SRCH_PATH 
-export OUTPUT_DIR LIBS_DIR OBJS_DIR DEPS_DIR
+define make-goal
+$1/%.o: %.c
+	@$(COLOR_ON)$(CC) $(TC_DEF) $(CFLAGS) $(INCLUDES) -c $$< -o $$@
+	@echo "CC    $$*.c"
+endef
 
-all:
-	@$(MAKE) -C debug -f debug.mk
-#	@$(MAKE) -C driver -f driver.mk
-#	@$(MAKE) -C mw -f mw.mk
-	@$(MAKE) -C root -f root.mk
-#	@$(MAKE_DIR)/test.sh
+.PHONY: all checkdirs clean help flowchart
+all: checkdirs $(BUILD_DIR)/$(PROGRAM)
+	
+$(BUILD_DIR)/$(PROGRAM): $(OBJ)
+	@$(LD) $^ -o $@
+	@echo "LD    $(PROGRAM)"
+	
 
-.PHONY: clean
-clean:
-	@$(MAKE) -C debug -f debug.mk clean
-#	@$(MAKE) -C driver -f driver.mk clean
-#	@$(MAKE) -C mw -f mw.mk clean
-	@$(MAKE) -C root -f root.mk clean
+checkdirs: $(BUILD_DIR)
 
-.PHONY: help
+$(BUILD_DIR):
+	mkdir -p $@
+
+clean: 
+	rm -f $(OBJ) $(DEP) $(BUILD_DIR)/$(PROGRAM)
+	rm -rf $(BUILD_DIR)
+
 help:
-	@$(MAKE) -C debug -f debug.mk help
-	@$(MAKE) -C root -f root.mk help
+	@echo "SRC DIR:    $(SRC_DIR:$(MAKE_DIR)/%=%)"
+	@echo "Build DIR:  $(BUILD_DIR:$(MAKE_DIR)/%=%)"
+	@echo "Source:     $(SRC:$(MAKE_DIR)/%=%)"
+	@echo "Obj:        $(OBJ:$(MAKE_DIR)/%=%)"
+	@echo "Dep:        $(DEP:$(MAKE_DIR)/%=%)"
+	@echo "Includes:   $(INCLUDES)"
 
-.PHONY: lint
-lint:
-	$(MAKE) -C debug -f debug.mk lint 
+flowchart:
+	@cflow2dot pdf ${SRC}
+
+$(foreach sdir,$(SRC_DIR),$(eval $(call make-goal,$(sdir))))
+
