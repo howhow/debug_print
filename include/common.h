@@ -1,11 +1,11 @@
 /*	@file common.h
- *	
+ *
  *	Main start point
  *
  *	@Author:	How.Chen
  *	@Version:	2.0
  *	@Date:		19th/June/2012
- *	@Note:		At V2.0, add common typedef 
+ *	@Note:		At V2.0, add common typedef
  */
 #ifndef _COMMON_H_
 #define _COMMON_H_

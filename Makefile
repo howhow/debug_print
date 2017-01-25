@@ -36,7 +36,6 @@ LIBS += -ldebug
 CFLAGS :=
 CFLAGS += $(INC_SRCH_PATH) $(LIB_SRCH_PATH) 
 CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign
-#CFLAGS += -finstrument-functions -fdump-rtl-expand
 CFLAGS += -D_DEBUG_ -D_REENTRANT
 
 LDFLAGS :=

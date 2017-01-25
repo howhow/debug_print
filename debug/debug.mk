@@ -30,6 +30,6 @@ clean:
 	@echo "    Remove depends:   $(DEPS)"
 	@echo "    Remove Libraries:  $(notdir $(LIB))"
 
-.PHONY: lint 
+.PHONY: lint
 lint:
 	$(LINT) $(INC_SRCH_PATH) $(SRCS)
