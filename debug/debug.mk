@@ -6,30 +6,37 @@
 #	@Note:		At V2.0, add generate library
 #				remove system print and customized
 
-LIB = $(MAKE_DIR)/libs/libdebug.a
+MODULE = debug
+
+MOD_LIB = $(LIBS_DIR)/lib$(MODULE).a
+
 SRCS = $(wildcard *.c)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 DEPS = $(patsubst %.c, %.d, $(SRCS))
 
-$(LIB): $(OBJS)
-	@mkdir -p ../libs
+$(MOD_LIB): $(OBJS)
+	@mkdir -p $(LIBS_DIR)
 #	@$(AR) crv $@ $^
 	@$(AR) cr $@ $^
-	@echo "    Archive    $(notdir $@)"
+	@echo "    AR    $(notdir $@)"
 
-$(OBJS): $(SRCS)
-	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -c $^
-#	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -MM $(SRC) > $(DEPS)
-	@echo "    CC        $(OBJS)"
+%.o: %.c
+	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -c $<
+	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -MM $< > $*.d
+	@echo "    CC    $<"
+
 
 .PHONY: clean
 clean:
-	@$(RM) -f $(LIB) $(OBJS) $(DEPS)
+	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS)
 	@$(RM) -f *.expand
 	@echo "    Remove Objects:   $(OBJS)"
 	@echo "    Remove depends:   $(DEPS)"
-	@echo "    Remove Libraries:  $(notdir $(LIB))"
+	@echo "    Remove Libraries:  $(notdir $(MOD_LIB))"
+
 
 .PHONY: lint
 lint:
 	$(LINT) $(INC_SRCH_PATH) $(SRCS)
+
+-include $(DEPS)
