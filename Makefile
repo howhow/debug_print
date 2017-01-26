@@ -30,8 +30,8 @@ LIB_SRCH_PATH += -L$(LIBS_DIR)
 
 COLOR_ON = color
 COLOR_OFF = 
-CC = $(COLOR_ON)gcc
-#CC = $(COLOR_OFF)gcc
+#CC = $(COLOR_ON)gcc
+CC = $(COLOR_OFF)gcc
 LD = ld
 
 LINT = splint
