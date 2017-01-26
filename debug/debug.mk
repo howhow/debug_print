@@ -34,7 +34,7 @@ $(MOD_LIB): $(OBJS)
 
 .PHONY: clean
 clean:
-	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS)
+	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS) *.gc*
 	@echo "    Remove Obj:    $(OBJS)"
 	@echo "    Remove Dep:    $(DEPS)"
 	@echo "    Remove Lib:     $(notdir $(MOD_LIB))"
@@ -43,5 +43,10 @@ clean:
 .PHONY: lint
 lint:
 	$(LINT) $(INC_SRCH_PATH) $(SRCS)
+
+
+.PHONY: testcov
+testcov: $(SRCS)
+	gcov $(SRCS)
 
 -include $(DEPS)

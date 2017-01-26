@@ -69,6 +69,12 @@ void DbgConfig(BOOL bGrpEnable, dbgGrp_e grp, dbgLevel_e level)
 }
 
 #ifdef _DEBUG_
+/*
+ * FIXME: here is defect in debug enable check
+ * right now if last setting is largest one
+ * all other component will be enabled as well
+ * need combine grp and level check together
+ */
 static BOOL DbgIsGrpEnable(dbgGrp_e grp)
 {
     if(BIT_SET(grp) & gDbg_mask)

@@ -43,6 +43,7 @@ CFLAGS :=
 CFLAGS += $(INC_SRCH_PATH) $(LIB_SRCH_PATH) 
 CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign
 CFLAGS += -D_DEBUG_ -D_REENTRANT
+CFLAGS += -fprofile-arcs -ftest-coverage
 
 LDFLAGS :=
 
@@ -65,4 +66,13 @@ help:
 
 .PHONY: lint
 lint:
-	$(MAKE) -C debug -f debug.mk lint 
+	$(MAKE) -C debug -f debug.mk lint
+
+.PHONY: test
+test:
+	@$(MAKE) -C root -f root.mk test
+
+.PHONY: testcov
+testcov:
+	@$(MAKE) -C root -f root.mk testcov
+	$(MAKE) -C debug -f debug.mk testcov

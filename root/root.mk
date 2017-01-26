@@ -31,11 +31,19 @@ $(PROG): $(OBJS)
 
 .PHONY: clean
 clean:
-	@$(RM) -f $(DEPS) $(OBJS) $(PROG)
+	@$(RM) -f $(DEPS) $(OBJS) $(PROG) *.gc*
 	@$(RM) -rf $(OUTPUT_DIR) $(LIBS_DIR)
 	@echo "    Remove Obj:    $(OBJS)"
 	@echo "    Remove Dep:    $(DEPS)"
 	@echo "    Remove Prog:    $(notdir $(PROG))"
+
+.PHONY: test
+test:
+	$(PROG)
+
+.PHONY: testcov
+testcov: $(SRCS)
+	gcov $(SRCS)
 
 -include $(DEPS)
 
