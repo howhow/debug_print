@@ -1,4 +1,6 @@
 # debug_print
+Linux:
+x86_64 [![Build Status](https://travis-ci.org/howhow/debug_print.svg?branch=master)](https://travis-ci.org/howhow/debug_print)
 ## Purpose
 1. study how to impelmente debug print method
 2. study makefile
