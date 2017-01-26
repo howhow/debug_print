@@ -32,7 +32,7 @@ $(MOD_LIB): $(OBJS)
 	@echo "    CC    $<"
 
 
-.PHONY: clean
+.PHONY: clean lint testcov
 clean:
 	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS) *.gc*
 	@echo "    Remove Obj:    $(OBJS)"
@@ -40,13 +40,14 @@ clean:
 	@echo "    Remove Lib:     $(notdir $(MOD_LIB))"
 
 
-.PHONY: lint
 lint:
 	$(LINT) $(INC_SRCH_PATH) $(SRCS)
 
 
-.PHONY: testcov
-testcov: $(SRCS)
-	gcov $(SRCS)
+testcov:
+	for cfile in $(SRCS); do \
+		gcov $$cfile; \
+	done
 
 -include $(DEPS)
+
