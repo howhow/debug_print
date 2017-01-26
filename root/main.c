@@ -29,18 +29,18 @@ extern UINT32 gDbg_mask;
 int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
 {
 
-	DbgConfig(TRUE, I2C, FATAL);
+    DbgConfig(TRUE, I2C, FATAL);
 
 #ifdef _DEBUG_
     printf("Debug Mask: 0x%04X\n",gDbg_mask);
 #endif
 
-	I2C_PRINT(INFO,  "test\n");
-	I2C_PRINT(DEBUG, "^g^test\n");
-	I2C_PRINT(WARN,  "^y^test\n");
-	I2C_PRINT(ALARM, "^y^test\n");
-	I2C_PRINT(ERROR, "^r^test\n");
-	I2C_PRINT(FATAL, "^r^test\n");
+    I2C_PRINT(INFO,  "test\n");
+    I2C_PRINT(DEBUG, "^g^test\n");
+    I2C_PRINT(WARN,  "^y^test\n");
+    I2C_PRINT(ALARM, "^y^test\n");
+    I2C_PRINT(ERROR, "^r^test\n");
+    I2C_PRINT(FATAL, "^r^test\n");
 
-	return 0;
+    return 0;
 }

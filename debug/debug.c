@@ -24,18 +24,16 @@
 UINT32 gDbg_mask;
 UINT32 gDbg_level;
 
-
-
 static const char *clrStrings[] = {
-	"\x1b[30m",
-	"\x1b[31m",
-	"\x1b[32m",
-	"\x1b[33m",
-	"\x1b[34m",
-	"\x1b[35m",
-	"\x1b[36m",
-	"\x1b[37m",
-	"\x1b[0m",
+    "\x1b[30m",
+    "\x1b[31m",
+    "\x1b[32m",
+    "\x1b[33m",
+    "\x1b[34m",
+    "\x1b[35m",
+    "\x1b[36m",
+    "\x1b[37m",
+    "\x1b[0m",
 };
 
 dbgInfo_t gDbgInfo[] = {
@@ -73,10 +71,12 @@ void DbgConfig(BOOL bGrpEnable, dbgGrp_e grp, dbgLevel_e level)
 #ifdef _DEBUG_
 static BOOL DbgIsGrpEnable(dbgGrp_e grp)
 {
-	if(BIT_SET(grp) & gDbg_mask)
-		return TRUE;
+    if(BIT_SET(grp) & gDbg_mask)
+    {
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 static BOOL DbgIsLevelEnable(dbgLevel_e level)
@@ -85,10 +85,8 @@ static BOOL DbgIsLevelEnable(dbgLevel_e level)
     {
         return TRUE;
     }
-    else
-    {
-        return FALSE;
-    }
+
+    return FALSE;
 }
 #endif
 
@@ -142,7 +140,6 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
     }
     else
     {
-
         count = vsnprintf(&dbgBUF[0], DBG_BUFFER_SIZE-14, format, args);
         (*pFunc)(stream, "[%s] %s", gDbgInfo[grp].grpName, dbgBUF);
     }
@@ -152,7 +149,7 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
 
 static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args)
 {
-	return DBGvsprint(grp, stream, fmt, args);
+    return DBGvsprint(grp, stream, fmt, args);
 }
 
 int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)

@@ -39,10 +39,10 @@ typedef enum
 {
     GRP_START = 0x0,
     /* Support different function */
-	I2C = 0x1,
-	SPI,
-	USIF,
-	USB,
+    I2C = 0x1,
+    SPI,
+    USIF,
+    USB,
 
     GRP_END
 }dbgGrp_e;
