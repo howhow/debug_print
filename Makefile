@@ -31,10 +31,10 @@ LIB_SRCH_PATH += -L$(LIBS_DIR)
 COLOR_ON = color
 COLOR_OFF = 
 #CC = $(COLOR_ON)gcc
-CC = $(COLOR_OFF)gcc
-LD = ld
-
-LINT = splint
+CC    = $(COLOR_OFF)gcc
+LD    = ld
+LINT  = splint
+COV   = gcovr
 
 CLIBS :=
 CLIBS += -ldebug
@@ -74,5 +74,8 @@ test:
 
 .PHONY: testcov
 testcov:
-	@$(MAKE) -C root -f root.mk testcov
-	$(MAKE) -C debug -f debug.mk testcov
+	@echo Line covered:
+	@$(COV) -r $(MAKE_DIR)
+	@echo ""
+	@echo Branch covered:
+	@$(COV) -r $(MAKE_DIR) -b
