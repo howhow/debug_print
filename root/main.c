@@ -103,9 +103,10 @@ int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
     USB_PRINT(INFO,  "test\n");
     USB_PRINT(DEBUG, "^a^test\n");
     USB_PRINT(WARN,  "^a^test\n");
-    USB_PRINT(ALARM, "^k^test\n");
-    USB_PRINT(ERROR, "^k^test\n");
-    USB_PRINT(FATAL, "^k^test\n");
+    USB_PRINT(ALARM, "^^test\n");
+    USB_PRINT(ERROR, "^ ^test\n");
+    USB_PRINT(FATAL, "^  ^test\n");
+    USB_PRINT(FATAL, "!test\n");
 
     USB_PRINT(INFO,  "^g^level: %d\n", INFO);
     USB_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
