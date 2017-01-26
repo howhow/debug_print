@@ -54,26 +54,26 @@ all:
 	@$(MAKE) -C debug -f debug.mk
 	@$(MAKE) -C root -f root.mk
 
-.PHONY: clean
+.PHONY: clean help lint test testcov testcovr
 clean:
 	@$(MAKE) -C debug -f debug.mk clean
 	@$(MAKE) -C root -f root.mk clean
 
-.PHONY: help
 help:
 	@$(MAKE) -C debug -f debug.mk help
 	@$(MAKE) -C root -f root.mk help
 
-.PHONY: lint
 lint:
 	$(MAKE) -C debug -f debug.mk lint
 
-.PHONY: test
 test:
 	@$(MAKE) -C root -f root.mk test
 
-.PHONY: testcov
 testcov:
+	@$(MAKE) -C root -f root.mk testcov
+	@$(MAKE) -C debug -f debug.mk testcov
+
+testcovr:
 	@echo Line covered:
 	@$(COV) -r $(MAKE_DIR)
 	@echo ""
