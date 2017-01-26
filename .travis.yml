@@ -1,6 +1,7 @@
 language: c
 compiler: gcc
 install:
+    - sudo apt-get update 
     - sudo apt-get install gcovr
 script:
     - make && make test && make testcov
