@@ -13,4 +13,3 @@ x86_64 [![Build Status](https://travis-ci.org/howhow/debug_print.svg?branch=mast
 
 ## Known issue
 1. Makefile dependence problem, modify sub component c file, will not trigger a new link
-2. print level will impact all module, need split it into individual
