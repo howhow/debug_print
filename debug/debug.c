@@ -21,75 +21,59 @@
 #define DBG_BUFFER_SIZE 1024
 #define BIT_SET(pos) (1<<pos)
 
-UINT32 gDbg_mask;
-UINT32 gDbg_level;
-
+/* 
+ * add color here
+ */
 static const char *clrStrings[] = {
-    "\x1b[30m",
-    "\x1b[31m",
-    "\x1b[32m",
-    "\x1b[33m",
-    "\x1b[34m",
-    "\x1b[35m",
-    "\x1b[36m",
-    "\x1b[37m",
+    "\x1b[0;30m",   /* Black */
+    "\x1b[0;31m",   /* Red */
+    "\x1b[0;32m",   /* Green */
+    "\x1b[0;33m",   /* Yellow */
+    "\x1b[0;34m",   /* Blue */
+    "\x1b[0;35m",   /* Purple */
+    "\x1b[0;36m",   /* Cyan */
+    "\x1b[0;37m",   /* Light Gray*/
     "\x1b[0m",
 };
 
+/*
+ * Init debug info
+ */
 dbgInfo_t gDbgInfo[] = {
-    /* group_id,    group_name */
-    {GRP_START,     NULL},
-    {I2C,           "I2C"},
-    {SPI,           "SPI"},
-    {USIF,          "USIF"},
-    {USB,           "USB"},
-    {GRP_END,       NULL}
+    /* group_id,    dbg_level,  group_name */
+    {GRP_START,     NONE,       NULL},
+    {I2C,           NONE,       "I2C"},
+    {SPI,           NONE,       "SPI"},
+    {USIF,          NONE,       "USIF"},
+    {USB,           NONE,       "USB"},
+    {GRP_END,       NONE,       NULL}
 };
+#define DBG_INFO_SIZE (sizeof(gDbgInfo) / sizeof(gDbgInfo[0]))
 
-void DbgConfig(BOOL bGrpEnable, dbgGrp_e grp, dbgLevel_e level)
+void DbgConfig(dbgGrp_e grp, dbgLevel_e level)
 {
-    UINT32 val = 0x0;
+    unsigned int i;
 
-    if(grp > GRP_START && grp < GRP_END)
+    for(i=0; i<DBG_INFO_SIZE; i++)
     {
-        //found group
-        val = (1<<grp);
+        if(grp == gDbgInfo[i].grpId)
+        {
+            gDbgInfo[i].level = level;
+        }
     }
-
-    if(bGrpEnable)
-    {
-        gDbg_mask |= val;
-    }
-    else
-    {
-        gDbg_mask &= ~val;
-    }
-
-    gDbg_level = level;
 }
 
 #ifdef _DEBUG_
-/*
- * FIXME: here is defect in debug enable check
- * right now if last setting is largest one
- * all other component will be enabled as well
- * need combine grp and level check together
- */
-static BOOL DbgIsGrpEnable(dbgGrp_e grp)
+static BOOL DbgIsPrintEnable(dbgGrp_e grp, dbgLevel_e level)
 {
-    if(BIT_SET(grp) & gDbg_mask)
-    {
-        return TRUE;
-    }
+    unsigned int i;
 
-    return FALSE;
-}
-
-static BOOL DbgIsLevelEnable(dbgLevel_e level)
-{
-    if (level <= gDbg_level)
+    for(i=0; i<DBG_INFO_SIZE; i++)
     {
-        return TRUE;
+        if((grp == gDbgInfo[i].grpId) && level <= gDbgInfo[i].level)
+        {
+            return TRUE;
+        }
     }
 
     return FALSE;
@@ -132,7 +116,11 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
 
         if(colorIndex >= 0)
         {
+#if 0
             if(!(format[1] & 0x20))
+#else
+            if(format[1] == ' ')
+#endif
             {
                 colorIndex += 8;
             }
@@ -162,7 +150,7 @@ int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt,
 {
     int count = 0;
 #ifdef _DEBUG_
-    if( DbgIsGrpEnable(grp) && DbgIsLevelEnable(level) )
+    if(DbgIsPrintEnable(grp, level))
     {
         va_list args;
 

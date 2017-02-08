@@ -32,14 +32,11 @@ extern UINT32 gDbg_mask;
 int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
 {
 
-    DbgConfig(TRUE, I2C, FATAL);
-    DbgConfig(TRUE, SPI, FATAL);
-    DbgConfig(TRUE, USIF, FATAL);
-    DbgConfig(TRUE, USB, FATAL);
+    DbgConfig(I2C,  FATAL);
+    DbgConfig(SPI,  FATAL);
+    DbgConfig(USIF, FATAL);
+    DbgConfig(USB,  FATAL);
 
-#ifdef _DEBUG_
-    printf("Debug Mask: 0x%04X\n",gDbg_mask);
-#endif
 
     I2C_PRINT(INFO,  "test\n");
     I2C_PRINT(DEBUG, "^g^test\n");
@@ -47,6 +44,7 @@ int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
     I2C_PRINT(ALARM, "^y^test\n");
     I2C_PRINT(ERROR, "^r^test\n");
     I2C_PRINT(FATAL, "^r^test\n");
+    I2C_PRINT(FATAL, "^x^test\n");
 
     SPI_PRINT(INFO,  "test\n");
     SPI_PRINT(DEBUG, "^b^test\n");
@@ -62,29 +60,29 @@ int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
     USB_PRINT(ERROR, "^k^test\n");
     USB_PRINT(FATAL, "^k^test\n");
 
-    USB_PRINT(INFO,  "^g^level: %d\n", INFO);
-    USB_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
-    USB_PRINT(WARN,  "^r^level: %d\n", WARN);
-    USB_PRINT(ALARM, "^b^level: %d\n", ALARM);
-    USB_PRINT(ERROR, "^p^level: %d\n", ERROR);
-    USB_PRINT(FATAL, "^c^level: %d\n", FATAL);
+    USIF_PRINT(INFO,  "^g^level: %d\n", INFO);
+    USIF_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
+    USIF_PRINT(WARN,  "^r^level: %d\n", WARN);
+    USIF_PRINT(ALARM, "^b^level: %d\n", ALARM);
+    USIF_PRINT(ERROR, "^p^level: %d\n", ERROR);
+    USIF_PRINT(FATAL, "^c^level: %d\n", FATAL);
 
-    DbgConfig(FALSE, I2C, FATAL);
-    DbgConfig(FALSE, SPI, FATAL);
-    DbgConfig(FALSE, USIF, FATAL);
-    DbgConfig(FALSE, USB, FATAL);
+    DbgConfig(I2C,  NONE);
+    DbgConfig(SPI,  NONE);
+    DbgConfig(USIF, NONE);
+    DbgConfig(USB,  NONE);
 
-    I2C_PRINT(INFO,  "test\n");
-    I2C_PRINT(DEBUG, "^g^test\n");
-    I2C_PRINT(WARN,  "^y^test\n");
-    I2C_PRINT(ALARM, "^y^test\n");
-    I2C_PRINT(ERROR, "^r^test\n");
-    I2C_PRINT(FATAL, "^r^test\n");
+    I2C_PRINT(INFO,  "test, should not print!\n");
+    I2C_PRINT(DEBUG, "^g^test, should not print!\n");
+    I2C_PRINT(WARN,  "^y^test, should not print!\n");
+    I2C_PRINT(ALARM, "^y^test, should not print!\n");
+    I2C_PRINT(ERROR, "^r^test, should not print!\n");
+    I2C_PRINT(FATAL, "^r^test, should not print!\n");
 
-    DbgConfig(TRUE, I2C, INFO);
-    DbgConfig(TRUE, SPI, WARN);
-    DbgConfig(TRUE, USIF, DEBUG);
-    DbgConfig(TRUE, USB, FATAL);
+    DbgConfig(I2C,  INFO);
+    DbgConfig(SPI,  WARN);
+    DbgConfig(USIF, DEBUG);
+    DbgConfig(USB,  FATAL);
 
     I2C_PRINT(INFO,  "test\n");
     I2C_PRINT(DEBUG, "^g^test\n");
@@ -108,17 +106,17 @@ int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
     USB_PRINT(FATAL, "^  ^test\n");
     USB_PRINT(FATAL, "!test\n");
 
-    USB_PRINT(INFO,  "^g^level: %d\n", INFO);
-    USB_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
-    USB_PRINT(WARN,  "^r^level: %d\n", WARN);
-    USB_PRINT(ALARM, "^b^level: %d\n", ALARM);
-    USB_PRINT(ERROR, "^p^level: %d\n", ERROR);
-    USB_PRINT(FATAL, "^c^level: %d\n", FATAL);
+    USIF_PRINT(INFO,  "^g^level: %d\n", INFO);
+    USIF_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
+    USIF_PRINT(WARN,  "^r^level: %d\n", WARN);
+    USIF_PRINT(ALARM, "^b^level: %d\n", ALARM);
+    USIF_PRINT(ERROR, "^p^level: %d\n", ERROR);
+    USIF_PRINT(FATAL, "^c^level: %d\n", FATAL);
 
-    DbgConfig(FALSE, I2C, FATAL);
-    DbgConfig(FALSE, SPI, FATAL);
-    DbgConfig(FALSE, USIF, FATAL);
-    DbgConfig(FALSE, USB, FATAL);
+    DbgConfig(I2C,  NONE);
+    DbgConfig(SPI,  NONE);
+    DbgConfig(USIF, NONE);
+    DbgConfig(USB,  NONE);
 
     return 0;
 }
