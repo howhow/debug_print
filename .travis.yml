@@ -1,4 +1,4 @@
 language: c
 compiler: gcc
 script:
-    - make && make test && make testcov
+    - make && make test && make testcov && make clean
