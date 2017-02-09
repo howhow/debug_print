@@ -116,11 +116,7 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
 
         if(colorIndex >= 0)
         {
-#if 0
-            if(!(format[1] & 0x20))
-#else
             if(format[1] == ' ')
-#endif
             {
                 colorIndex += 8;
             }
