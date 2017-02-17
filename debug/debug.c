@@ -78,7 +78,6 @@ static BOOL DbgIsPrintEnable(dbgGrp_e grp, dbgLevel_e level)
 
     return FALSE;
 }
-#endif
 
 static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list args)
 {
@@ -141,6 +140,7 @@ static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args
 {
     return DBGvsprint(grp, stream, fmt, args);
 }
+#endif  //_DEBUG_
 
 int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)
 {
