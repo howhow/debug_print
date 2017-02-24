@@ -27,7 +27,7 @@ vpath %.c $(SRC_DIR)
 
 define make-goal
 $1/%.o: %.c
-	@$(COLOR_ON)$(CC) $(TC_DEF) $(CFLAGS) $(INCLUDES) -c $$< -o $$@
+	@$(COLOR_OFF)$(CC) $(TC_DEF) $(CFLAGS) $(INCLUDES) -c $$< -o $$@
 	@echo "CC    $$*.c"
 endef
 
