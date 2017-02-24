@@ -1,10 +1,17 @@
 # Sub-folder makefile
 #
-# 	@Author:	How.Chen
-#	@Version:	2.0
-#	@Date:		28th/Aug/2012
-#	@Note:		At V2.0, add generate library
-#				remove system print and customized
+#    @File:      debug.mk
+#    @Author:    How.Chen
+#    @Version:   2.0
+#    @Date:      26h/Jan/2017
+#    @Note:
+#                -V1.0
+#                - init commit
+#                - add generate library
+#                - remove system print and customized
+#
+#                V2.0
+#                - add dependence check
 
 MODULE = debug
 
@@ -16,7 +23,6 @@ DEPS = $(patsubst %.c, %.d, $(SRCS))
 
 $(MOD_LIB): $(OBJS)
 	@mkdir -p $(LIBS_DIR)
-#	@$(AR) crv $@ $^
 	@$(AR) cr $@ $^
 	@echo "    AR    $(notdir $@)"
 
@@ -26,17 +32,22 @@ $(MOD_LIB): $(OBJS)
 	@echo "    CC    $<"
 
 
-.PHONY: clean
+.PHONY: clean lint testcov
 clean:
-	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS)
-	@$(RM) -f *.expand
-	@echo "    Remove Objects:   $(OBJS)"
-	@echo "    Remove depends:   $(DEPS)"
-	@echo "    Remove Libraries:  $(notdir $(MOD_LIB))"
+	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS) *.gc*
+	@echo "    Remove Obj:    $(OBJS)"
+	@echo "    Remove Dep:    $(DEPS)"
+	@echo "    Remove Lib:     $(notdir $(MOD_LIB))"
 
 
-.PHONY: lint
 lint:
 	$(LINT) $(INC_SRCH_PATH) $(SRCS)
 
+
+testcov:
+	for cfile in $(SRCS); do \
+		gcov $$cfile; \
+	done
+
 -include $(DEPS)
+

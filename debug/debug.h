@@ -39,16 +39,17 @@ typedef enum
 {
     GRP_START = 0x0,
     /* Support different function */
-	I2C = 0x1,
-	SPI,
-	USIF,
-	USB,
+    I2C = 0x1,
+    SPI,
+    USIF,
+    USB,
 
     GRP_END
 }dbgGrp_e;
 
 typedef enum
 {
+    NONE = 0x0,
     /* support different level */
     INFO = 0x1,
     DEBUG,
@@ -60,7 +61,8 @@ typedef enum
 
 typedef struct
 {
-    dbgGrp_e   grpId;
+    dbgGrp_e    grpId;
+    dbgLevel_e  level;
     const char  *grpName;
 }dbgInfo_t;
 
@@ -78,7 +80,7 @@ typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
 
 extern int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...);
 
-void DbgConfig(BOOL bGrpEnable, dbgGrp_e grp, dbgLevel_e level);
+void DbgConfig(dbgGrp_e grp, dbgLevel_e level);
 
 #ifdef __cplusplus
 }
