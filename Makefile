@@ -31,7 +31,7 @@ $1/%.o: %.c
 	@echo "CC    $$*.c"
 endef
 
-.PHONY: all checkdirs clean help flowchart
+.PHONY: all checkdirs clean help flowchart test testcov
 all: checkdirs $(BUILD_DIR)/$(PROGRAM)
 	
 $(BUILD_DIR)/$(PROGRAM): $(OBJ)
@@ -58,6 +58,12 @@ help:
 
 flowchart:
 	@cflow2dot pdf ${SRC}
+
+test:
+	@echo "dumy for $@"
+
+testcov:
+	@echo "dumy for $@"
 
 $(foreach sdir,$(SRC_DIR),$(eval $(call make-goal,$(sdir))))
 
