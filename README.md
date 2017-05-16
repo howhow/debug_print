@@ -13,6 +13,3 @@ x86_64
 1. split print to stdout and stderr
 2. colored print
 3. leveled print
-
-## Known issue
-1. Makefile dependence problem, modify sub component c file, will not trigger a new link
