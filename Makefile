@@ -1,69 +1,58 @@
-CC        := gcc
-LD        := gcc 
-COLOR_ON 	:= color
-COLOR_OFF	:=
+# define useful directory path
+TOP_DIR = $(PWD)
+MKFILE_DIR = $(TOP_DIR)/sys-make
+CFG_DIR = $(MKFILE_DIR)/config
+OUTPUT_DIR = $(TOP_DIR)/output
 
-PROGRAM = test_print
+# define useful prefix/postfix
+LIB_PREFIX = lib
+LIB_POSTFIX = a
 
-MAKE_DIR	= $(PWD)
-MODULES		:= debug root
-SRC_DIR		:= $(addprefix $(MAKE_DIR)/,$(MODULES))
-BUILD_DIR	:= $(MAKE_DIR)/output
+# executable name
+TARGET_NAME = debug_print
 
-SRC			:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
-OBJ			:= $(patsubst %.c,%.o,$(SRC))
-DEP			:= $(patsubst %.c,%.d,$(SRC))
+# include build configuration
+# FEATURE define in it
+include $(CFG_DIR)/build.config
 
-INCLUDES	:= $(addprefix -I,$(SRC_DIR))
-INCLUDES	+= -I$(MAKE_DIR)/include
+# export var, which need be known by sub-makefile
+export TOP_DIR MKFILE_DIR OUTPUT_DIR
+export LIB_PREFIX LIB_POSTFIX
+export TARGET_NAME
 
-CFLAGS :=
-CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign -Werror 
-CFLAGS += -D_DEBUG_ -D_REENTRANT
-CFLAGS += -std=c99
-TC_DEF :=
+all: obj link
 
-vpath %.c $(SRC_DIR)
+obj:
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk
 
-define make-goal
-$1/%.o: %.c
-	@$(COLOR_OFF)$(CC) $(TC_DEF) $(CFLAGS) $(INCLUDES) -c $$< -o $$@
-	@echo "CC    $$*.c"
-endef
+# link workaround
+# pass link to rules.mk to trigger link
+link:
+	@$(MAKE) -f $(MKFILE_DIR)/rules.mk link
 
-.PHONY: all checkdirs clean help flowchart test testcov
-all: checkdirs $(BUILD_DIR)/$(PROGRAM)
-	
-$(BUILD_DIR)/$(PROGRAM): $(OBJ)
-	@$(LD) $^ -o $@
-	@echo "LD    $(PROGRAM)"
-	
+# check
+# to display each module build info
+check:
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk check
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk check
 
-checkdirs: $(BUILD_DIR)
-
-$(BUILD_DIR):
-	mkdir -p $@
-
-clean: 
-	rm -f $(OBJ) $(DEP) $(BUILD_DIR)/$(PROGRAM)
-	rm -rf $(BUILD_DIR)
-
-help:
-	@echo "SRC DIR:    $(SRC_DIR:$(MAKE_DIR)/%=%)"
-	@echo "Build DIR:  $(BUILD_DIR:$(MAKE_DIR)/%=%)"
-	@echo "Source:     $(SRC:$(MAKE_DIR)/%=%)"
-	@echo "Obj:        $(OBJ:$(MAKE_DIR)/%=%)"
-	@echo "Dep:        $(DEP:$(MAKE_DIR)/%=%)"
-	@echo "Includes:   $(INCLUDES)"
+# remove ouyput
+clean:
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk clean
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk clean
+	-rm -r $(OUTPUT_DIR)
 
 flowchart:
 	@cflow2dot pdf ${SRC}
 
 test:
-	@echo "dumy for $@"
+	$(OUTPUT_DIR)/$(TARGET_NAME)
 
 testcov:
-	@echo "dumy for $@"
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk testcov
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk testcov
 
-$(foreach sdir,$(SRC_DIR),$(eval $(call make-goal,$(sdir))))
-
+testcovr:
+	gcovr -r $(TOP_DIR)
+	gcovr -r $(TOP_DIR) -b

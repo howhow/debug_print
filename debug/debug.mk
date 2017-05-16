@@ -13,41 +13,36 @@
 #                V2.0
 #                - add dependence check
 
+# define module name for compile use
 MODULE = debug
 
-MOD_LIB = $(LIBS_DIR)/lib$(MODULE).a
-
-SRCS = $(wildcard *.c)
-OBJS = $(patsubst %.c, %.o, $(SRCS))
-DEPS = $(patsubst %.c, %.d, $(SRCS))
-
-$(MOD_LIB): $(OBJS)
-	@mkdir -p $(LIBS_DIR)
-	@$(AR) cr $@ $^
-	@echo "    AR    $(notdir $@)"
-
-%.o: %.c
-	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -c $<
-	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -MM $< > $*.d
-	@echo "    CC    $<"
+# define expected lib
+MOD_LIB = $(LIB_PREFIX)$(MODULE).$(LIB_POSTFIX)
 
 
-.PHONY: clean lint testcov
-clean:
-	@$(RM) -f $(MOD_LIB) $(OBJS) $(DEPS) *.gc*
-	@echo "    Remove Obj:    $(OBJS)"
-	@echo "    Remove Dep:    $(DEPS)"
-	@echo "    Remove Lib:     $(notdir $(MOD_LIB))"
+# modify sys-make/config/build.config to control
+CC_DEFS :=
 
+# add srouce files, which would like to compile
+SRC_FILES =
+SRC_FILES += debug.c
+# modify sys-make/config/build.config to control
+ifeq '$(filter INSTRUMENT, $(FEATURE))' 'INSTRUMENT'
+	SRC_FILES += instrument.c
+	SRC_FILES += uart_print.c
+endif
 
-lint:
-	$(LINT) $(INC_SRCH_PATH) $(SRCS)
+# add include search path
+INC_PATH =
+INC_PATH += $(TOP_DIR)/include
 
+# add source file search path together with vpath
+SRC_PATH =
+SRC_PATH += $(TOP_DIR)/$(MODULE)
 
-testcov:
-	for cfile in $(SRCS); do \
-		gcov $$cfile; \
-	done
+vpath %.c $(SRC_PATH)
 
--include $(DEPS)
+# use general compiler and compile rules
+include $(MKFILE_DIR)/gcc.mk
+include $(MKFILE_DIR)/rules.mk
 
