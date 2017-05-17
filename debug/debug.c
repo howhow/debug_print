@@ -140,12 +140,11 @@ static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args
 {
     return DBGvsprint(grp, stream, fmt, args);
 }
-#endif  //#ifdef _DEBUG_
 
 int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)
 {
     int count = 0;
-#ifdef _DEBUG_
+
     if(DbgIsPrintEnable(grp, level))
     {
         va_list args;
@@ -154,7 +153,8 @@ int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt,
         count = va_aprintOn(grp, stream, fmt, args);
         va_end(args);
     }
-#endif
+
     return count;
 }
+#endif  //#ifdef _DEBUG_
 
