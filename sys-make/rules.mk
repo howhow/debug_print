@@ -58,9 +58,11 @@ check:
 	@echo "cc include: $(CC_INC_PATH)"
 
 testcov:
+	cd $(OUTS) && \
 	for cfiles in $(SRCS); do \
 		gcov -fb $$cfiles -o $(OUTS); \
 	done
+	cd $(TOP_DIR) 
 
 
 # remove output for each sub module
