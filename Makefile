@@ -1,81 +1,58 @@
-# General Makefile
-#
-#    @File:      Makefile
-#    @Author:    How.Chen
-#    @Version:   2.0
-#    @Date:      25th/Jan/2017
-#                - V1.0
-#                - init commit
+# define useful directory path
+TOP_DIR = $(PWD)
+MKFILE_DIR = $(TOP_DIR)/sys-make
+CFG_DIR = $(MKFILE_DIR)/config
+OUTPUT_DIR = $(TOP_DIR)/output
 
-MAKE_DIR = $(PWD)
+# define useful prefix/postfix
+LIB_PREFIX = lib
+LIB_POSTFIX = a
 
-ROOT_DIR	:= $(MAKE_DIR)/root 
-DRIVER_DIR	:= $(MAKE_DIR)/driver
-INCLUDE_DIR	:= $(MAKE_DIR)/include
-DEBUG_DIR	:= $(MAKE_DIR)/debug
-OUTPUT_DIR	:= $(MAKE_DIR)/output
-LIBS_DIR	:= $(OUTPUT_DIR)/libs
-OBJS_DIR	:= $(OUTPUT_DIR)/objs
-DEPS_DIR	:= $(OUTPUT_DIR)/deps
+# executable name
+TARGET_NAME = debug_print
 
-INC_SRCH_PATH := 
-INC_SRCH_PATH += -I$(ROOT_DIR)
-INC_SRCH_PATH += -I$(DRIVER_DIR) 
-INC_SRCH_PATH += -I$(INCLUDE_DIR)
-INC_SRCH_PATH += -I$(DEBUG_DIR)
+# include build configuration
+# FEATURE define in it
+include $(CFG_DIR)/build.config
 
-LIB_SRCH_PATH :=
-LIB_SRCH_PATH += -L$(LIBS_DIR)
+# export var, which need be known by sub-makefile
+export TOP_DIR MKFILE_DIR OUTPUT_DIR
+export LIB_PREFIX LIB_POSTFIX
+export TARGET_NAME
 
+all: obj link
 
-COLOR_ON = color
-COLOR_OFF = 
-#CC = $(COLOR_ON)gcc
-CC    = $(COLOR_OFF)gcc
-LD    = ld
-LINT  = splint
-COV   = gcovr
+obj:
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk
 
-CLIBS :=
-CLIBS += -ldebug
+# link workaround
+# pass link to rules.mk to trigger link
+link:
+	@$(MAKE) -f $(MKFILE_DIR)/rules.mk link
 
-CFLAGS :=
-CFLAGS += $(INC_SRCH_PATH) $(LIB_SRCH_PATH) 
-CFLAGS += -Wall -O -ggdb -Wstrict-prototypes -Wno-pointer-sign
-CFLAGS += -D_DEBUG_ -D_REENTRANT
-CFLAGS += -fprofile-arcs -ftest-coverage
+# check
+# to display each module build info
+check:
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk check
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk check
 
-LDFLAGS :=
-
-export MAKE_DIR CC LD CFLAGS LDFLAGS CLIBS LINT INC_SRCH_PATH 
-export OUTPUT_DIR LIBS_DIR OBJS_DIR DEPS_DIR
-
-all:
-	@$(MAKE) -C debug -f debug.mk
-	@$(MAKE) -C root -f root.mk
-
-.PHONY: clean help lint test testcov testcovr
+# remove ouyput
 clean:
-	@$(MAKE) -C debug -f debug.mk clean
-	@$(MAKE) -C root -f root.mk clean
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk clean
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk clean
+	-rm -r $(OUTPUT_DIR)
 
-help:
-	@$(MAKE) -C debug -f debug.mk help
-	@$(MAKE) -C root -f root.mk help
-
-lint:
-	$(MAKE) -C debug -f debug.mk lint
+flowchart:
+	@cflow2dot pdf ${SRC}
 
 test:
-	@$(MAKE) -C root -f root.mk test
+	$(OUTPUT_DIR)/$(TARGET_NAME)
 
 testcov:
-	@$(MAKE) -C root -f root.mk testcov
-	@$(MAKE) -C debug -f debug.mk testcov
+	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk testcov
+	@$(MAKE) -f $(TOP_DIR)/root/root.mk testcov
 
 testcovr:
-	@echo Line covered:
-	@$(COV) -r $(MAKE_DIR)
-	@echo ""
-	@echo Branch covered:
-	@$(COV) -r $(MAKE_DIR) -b
+	gcovr -r $(TOP_DIR)
+	gcovr -r $(TOP_DIR) -b
