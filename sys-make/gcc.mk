@@ -17,10 +17,10 @@ CC += gcc
 # TODO:: detect debug and release build
 CFLAG :=
 ifeq '$(DEBUG)' 'YES'
-	CFLAG += -ggdb -Wall
+	CFLAG += -ggdb -Wall -D_DEBUG_
 endif
 
 CFLAG += -fprofile-arcs -ftest-coverage
-CFLAG += -D_DEBUG_ -D_REENTRANT
+CFLAG += -D_REENTRANT
 CFLAG += -Wstrict-prototypes -Wno-pointer-sign -Werror
 
