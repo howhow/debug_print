@@ -3,47 +3,42 @@
 #    @File:      root.mk
 #    @Author:    How.Chen
 #    @Version:   2.0
-#    @Date:      26h/Jan/2017
+#    @Date:      16h/May/2017
 #    @Note:
 #                -V1.0
 #                - init commit
+#                - add generate library
 #                - remove system print and customized
 #
 #                V2.0
 #                - add dependence check
 
-PROG = $(OUTPUT_DIR)/test_print
+# define module name for compile use
+MODULE = root
 
-SRCS = $(wildcard *.c)
-OBJS = $(patsubst %.c, %.o, $(SRCS))
-DEPS = $(patsubst %.c, %.d, $(SRCS))
-
-$(PROG): $(OBJS)
-	@mkdir -p $(OUTPUT_DIR) 
-	@$(CC) $^ $(CFLAGS) -Wl,-Map=$(PROG).map $(CLIBS) -o $@
-	@echo "    LD    $(notdir $(PROG))"
-
-%.o: %.c
-	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -c $<
-	@$(CC) $(CFLAGS) $(INC_SRCH_PATH) -MM $< > $*.d
-	@echo "    CC    $<"
+# define expected lib
+MOD_LIB = $(LIB_PREFIX)$(MODULE).$(LIB_POSTFIX)
 
 
-.PHONY: clean
-clean:
-	@$(RM) -f $(DEPS) $(OBJS) $(PROG) *.gc*
-	@$(RM) -rf $(OUTPUT_DIR) $(LIBS_DIR)
-	@echo "    Remove Obj:    $(OBJS)"
-	@echo "    Remove Dep:    $(DEPS)"
-	@echo "    Remove Prog:    $(notdir $(PROG))"
+CC_DEFS :=
+# modify sys-make/config/build.config to control
 
-.PHONY: test
-test:
-	$(PROG)
+# add srouce files, which would like to compile
+SRC_FILES =
+SRC_FILES += main.c
 
-.PHONY: testcov
-testcov: $(SRCS)
-	gcov $(SRCS)
+# add include search path
+INC_PATH =
+INC_PATH += $(TOP_DIR)/include
+INC_PATH += $(TOP_DIR)/debug
 
--include $(DEPS)
+# add source file search path together with vpath
+SRC_PATH =
+SRC_PATH += $(TOP_DIR)/$(MODULE)
+
+vpath %.c $(SRC_PATH)
+
+# use general compiler and compile rules
+include $(MKFILE_DIR)/gcc.mk
+include $(MKFILE_DIR)/rules.mk
 
