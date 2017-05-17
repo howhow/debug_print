@@ -1,0 +1,24 @@
+# output dir
+/output
+
+# c related file
+*.d
+*.o
+*.a
+*.map
+
+# gcov file
+*.gcda
+*.gcov
+*.gcno
+
+# self shell script
+*.sh
+
+# vim swp file
+*.swp
+
+# cscope file
+*.files
+*.out
+tags
