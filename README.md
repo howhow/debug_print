@@ -10,6 +10,15 @@ x86_64
 2. study makefile
 
 ## Feature
-1. split print to stdout and stderr
-2. colored print
-3. leveled print
+1. split print to stdout and stderr, easy to filter
+2. colored print, easy to identify
+3. leveled print, easy to control
+
+## How to use
+#### 1. Display Debug output
+make DEBUG=YES && make test
+#### 2. Perform code coverage
+make DEBUG=YES && make test && make testcov
+#### 3. Remove debug print
+- just remove **DEBUG=YES** during make
+- configure in code by function **DbgConfig(group, level)**
