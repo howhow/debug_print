@@ -66,19 +66,19 @@ typedef struct
     const char  *grpName;
 }dbgInfo_t;
 
-typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
+//typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
 
 #ifdef _DEBUG_
 #define STD_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stdout, fmt, ##args)
 #define ERR_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stderr, fmt, ##args)
 #define DBG_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stderr, fmt, ##args)
+
+extern int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...);
 #else
 #define STD_PRINT(grp, level, fmt, args...)
 #define ERR_PRINT(grp, level, fmt, args...)
 #define DBG_PRINT(grp, level, fmt, args...)
 #endif
-
-extern int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...);
 
 void DbgConfig(dbgGrp_e grp, dbgLevel_e level);
 

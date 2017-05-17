@@ -21,8 +21,11 @@
 #define DBG_BUFFER_SIZE 1024
 #define BIT_SET(pos) (1<<pos)
 
-/* 
- * add color here
+/* define a print ptr
+ */
+typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
+
+/* add color here
  */
 static const char *clrStrings[] = {
     "\x1b[0;30m",   /* Black */
@@ -36,8 +39,7 @@ static const char *clrStrings[] = {
     "\x1b[0m",
 };
 
-/*
- * Init debug info
+/* Init debug info
  */
 dbgInfo_t gDbgInfo[] = {
     /* group_id,    dbg_level,  group_name */
@@ -86,12 +88,10 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
     static const char	*color1 = (char *)"";
     static const char	*color2 = (char *)"";
 
-    /*
-     * Also can link to self-print function
-     * eg.
-     * 		(PRT_FUNC_PTR)my_printf;
-     */
-    //PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)printf;
+     /* Also can link to self-print function
+      * eg.
+      * (PRT_FUNC_PTR)my_printf;
+      */
     PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)fprintf;
 
     if(*format == '!')  return 0;
@@ -140,7 +140,7 @@ static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args
 {
     return DBGvsprint(grp, stream, fmt, args);
 }
-#endif  //_DEBUG_
+#endif  //#ifdef _DEBUG_
 
 int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)
 {
