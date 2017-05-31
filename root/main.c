@@ -18,6 +18,7 @@
 
 #include "common.h"
 #include "debug.h"
+#include "driver.h"
 
 #ifdef _DEBUG_
 extern UINT32 gDbg_mask;
@@ -31,12 +32,13 @@ extern UINT32 gDbg_mask;
 
 int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
 {
+    int *fd;
+    DrvCommInit(&fd, local);
 
     DbgConfig(I2C,  FATAL);
     DbgConfig(SPI,  FATAL);
     DbgConfig(USIF, FATAL);
     DbgConfig(USB,  FATAL);
-
 
     I2C_PRINT(INFO,  "test\n");
     I2C_PRINT(DEBUG, "^g^test\n");

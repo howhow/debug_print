@@ -24,6 +24,7 @@ all: obj link
 
 obj:
 	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk
+	@$(MAKE) -f $(TOP_DIR)/driver/driver.mk
 	@$(MAKE) -f $(TOP_DIR)/root/root.mk
 
 # link workaround
@@ -35,11 +36,13 @@ link:
 # to display each module build info
 check:
 	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk check
+	@$(MAKE) -f $(TOP_DIR)/driver/driver.mk check
 	@$(MAKE) -f $(TOP_DIR)/root/root.mk check
 
 # remove ouyput
 clean:
 	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk clean
+	@$(MAKE) -f $(TOP_DIR)/driver/driver.mk clean
 	@$(MAKE) -f $(TOP_DIR)/root/root.mk clean
 	-rm -r $(OUTPUT_DIR)
 
@@ -51,6 +54,7 @@ test:
 
 testcov:
 	@$(MAKE) -f $(TOP_DIR)/debug/debug.mk testcov
+	@$(MAKE) -f $(TOP_DIR)/driver/driver.mk testcov
 	@$(MAKE) -f $(TOP_DIR)/root/root.mk testcov
 
 testcovr:

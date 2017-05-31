@@ -34,6 +34,7 @@ extern "C" {
 #include "common.h"
 
 /* add own debug group here
+ * sync this sequence with gDbgInfo[]
  */
 typedef enum
 {
@@ -66,7 +67,6 @@ typedef struct
     const char  *grpName;
 }dbgInfo_t;
 
-//typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
 
 #ifdef _DEBUG_
 #define STD_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stdout, fmt, ##args)
