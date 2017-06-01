@@ -9,12 +9,6 @@
  *	            - V3.0, add debug component	            
  */
 
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdarg.h>
 #include "common.h"
 #include "debug.h"
 
@@ -23,7 +17,7 @@
 
 /* define a print ptr
  */
-typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
+typedef void (*PRT_FUNC_PTR)(const char *fmt, ...);
 
 /* add color here
  */
@@ -40,61 +34,49 @@ static const char *clrStrings[] = {
 };
 
 /* Init debug info
+ * better to sync with dbgGrp_e, then
+ * 1. very easy to maintain code, only add more module in gDbgInfo[]
+ * 2. very simple to check which grp is enabled by which level
+ * refer to DbgConfig() and DbgIsPrintEnable() improve history
  */
 dbgInfo_t gDbgInfo[] = {
     /* group_id,    dbg_level,  group_name */
     {GRP_START,     NONE,       NULL},
-    {I2C,           NONE,       "I2C"},
-    {SPI,           NONE,       "SPI"},
-    {USIF,          NONE,       "USIF"},
-    {USB,           NONE,       "USB"},
+    {MOD1,          NONE,       "MOD1"},
+    {MOD2,          NONE,       "MOD2"},
+    {MOD3,          NONE,       "MOD3"},
+    {MOD4,          NONE,       "MOD4"},
     {GRP_END,       NONE,       NULL}
 };
 #define DBG_INFO_SIZE (sizeof(gDbgInfo) / sizeof(gDbgInfo[0]))
 
 void DbgConfig(dbgGrp_e grp, dbgLevel_e level)
 {
-    unsigned int i;
-
-    for(i=0; i<DBG_INFO_SIZE; i++)
-    {
-        if(grp == gDbgInfo[i].grpId)
-        {
-            gDbgInfo[i].level = level;
-        }
-    }
+    gDbgInfo[grp].level = level;
 }
 
 #ifdef _DEBUG_
 static BOOL DbgIsPrintEnable(dbgGrp_e grp, dbgLevel_e level)
 {
-    unsigned int i;
-
-    for(i=0; i<DBG_INFO_SIZE; i++)
-    {
-        if((grp == gDbgInfo[i].grpId) && level <= gDbgInfo[i].level)
-        {
-            return TRUE;
-        }
-    }
-
-    return FALSE;
+    return ((grp == gDbgInfo[grp].grpId) && (level <= gDbgInfo[grp].level)) ? TRUE : FALSE;
 }
 
-static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list args)
+static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 {
-    char	dbgBUF[DBG_BUFFER_SIZE];
+    char	dbgBuf[DBG_BUFFER_SIZE];    /* use static memory */
     int		count = 0;
     static const char	*color1 = (char *)"";
     static const char	*color2 = (char *)"";
 
-     /* Also can link to self-print function
-      * eg.
-      * (PRT_FUNC_PTR)my_printf;
-      */
-    PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)fprintf;
+    /* Also can link to self-print function
+     * eg.
+     * (PRT_FUNC_PTR)my_printf;
+     */
+    PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)printf;
 
     if(*format == '!')  return 0;
+
+    memset(dbgBuf, 0x0, DBG_BUFFER_SIZE);
 
     if((format[0] == '^') && (format[2] == '^'))
     {
@@ -124,24 +106,24 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
             color2 = clrStrings[8];
         }
 
-        count = vsnprintf(&dbgBUF[0], DBG_BUFFER_SIZE-14, format, args);
-        (*pFunc)(stream, "%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBUF, color2);
+        count = vsnprintf(&dbgBuf[0], DBG_BUFFER_SIZE-14, format, args);
+        (*pFunc)("%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBuf, color2);
     }
     else
     {
-        count = vsnprintf(&dbgBUF[0], DBG_BUFFER_SIZE-14, format, args);
-        (*pFunc)(stream, "[%s] %s", gDbgInfo[grp].grpName, dbgBUF);
+        count = vsnprintf(&dbgBuf[0], DBG_BUFFER_SIZE-14, format, args);
+        (*pFunc)("[%s] %s", gDbgInfo[grp].grpName, dbgBuf);
     }
 
     return count;
 }
 
-static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args)
+static int va_aprintOn(dbgGrp_e grp, const char *fmt, va_list args)
 {
-    return DBGvsprint(grp, stream, fmt, args);
+    return DBGvsprint(grp, fmt, args);
 }
 
-int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)
+int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, const char *fmt, ...)
 {
     int count = 0;
 
@@ -150,7 +132,7 @@ int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt,
         va_list args;
 
         va_start(args, fmt);
-        count = va_aprintOn(grp, stream, fmt, args);
+        count = va_aprintOn(grp, fmt, args);
         va_end(args);
     }
 

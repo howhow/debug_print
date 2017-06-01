@@ -31,6 +31,7 @@ SRC_FILES += main.c
 INC_PATH =
 INC_PATH += $(TOP_DIR)/include
 INC_PATH += $(TOP_DIR)/debug
+INC_PATH += $(TOP_DIR)/driver
 
 # add source file search path together with vpath
 SRC_PATH =
