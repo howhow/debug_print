@@ -14,6 +14,9 @@ x86_64
 2. colored print, easy to identify
 3. leveled print, easy to control
 
+## TODO
+Split print to different target
+
 ## How to use
 #### 1. Display Debug output
 make DEBUG=YES && make test

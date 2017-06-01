@@ -34,15 +34,16 @@ extern "C" {
 #include "common.h"
 
 /* add own debug group here
+ * sync this sequence with gDbgInfo[]
  */
 typedef enum
 {
     GRP_START = 0x0,
     /* Support different function */
-    I2C = 0x1,
-    SPI,
-    USIF,
-    USB,
+    MOD1 = 0x1,
+    MOD2,
+    MOD3,
+    MOD4,
 
     GRP_END
 }dbgGrp_e;
@@ -66,14 +67,13 @@ typedef struct
     const char  *grpName;
 }dbgInfo_t;
 
-//typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
 
 #ifdef _DEBUG_
-#define STD_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stdout, fmt, ##args)
-#define ERR_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stderr, fmt, ##args)
-#define DBG_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, stderr, fmt, ##args)
+#define STD_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, fmt, ##args)
+#define ERR_PRINT(grp, level, fmt, args...) DbgPrintColor(grp, level, fmt, ##args)
+#define DBG_PRINT(grp, level, fmt, args...) DbgPrintColor( grp, level, fmt, ##args)
 
-extern int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...);
+extern int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, const char *fmt, ...);
 #else
 #define STD_PRINT(grp, level, fmt, args...)
 #define ERR_PRINT(grp, level, fmt, args...)

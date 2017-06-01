@@ -15,6 +15,11 @@ extern "C" {
 #endif
 
 #include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdarg.h>
 
 #define __FUNC__    __FUNCTION__
 #define __L__       __LINE__
@@ -51,3 +56,4 @@ typedef int     __BOOL;
 #endif
 
 #endif // _COMMON_H_
+
