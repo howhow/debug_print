@@ -18,107 +18,103 @@
 
 #include "common.h"
 #include "debug.h"
-#include "driver.h"
 
 #ifdef _DEBUG_
 extern UINT32 gDbg_mask;
 #endif
 
 /* Example to use DBG print for each component */
-#define I2C_PRINT(level, fmt, args...)  DBG_PRINT(I2C, level, fmt, ##args) 
-#define SPI_PRINT(level, fmt, args...)  DBG_PRINT(SPI, level, fmt, ##args) 
-#define USIF_PRINT(level, fmt, args...) DBG_PRINT(USIF, level, fmt, ##args) 
-#define USB_PRINT(level, fmt, args...)  DBG_PRINT(USB, level, fmt, ##args) 
+#define MOD1_PRINT(level, fmt, args...)  DBG_PRINT(MOD1, level, fmt, ##args) 
+#define MOD2_PRINT(level, fmt, args...)  DBG_PRINT(MOD2, level, fmt, ##args) 
+#define MOD3_PRINT(level, fmt, args...)  DBG_PRINT(MOD3, level, fmt, ##args) 
+#define MOD4_PRINT(level, fmt, args...)  DBG_PRINT(MOD4, level, fmt, ##args) 
 
 int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
 {
-    int *fd;
-    DrvCommInit(&fd, local);
+    DbgConfig(MOD1, FATAL);
+    DbgConfig(MOD2, FATAL);
+    DbgConfig(MOD3, FATAL);
+    DbgConfig(MOD4, FATAL);
 
-    DbgConfig(I2C,  FATAL);
-    DbgConfig(SPI,  FATAL);
-    DbgConfig(USIF, FATAL);
-    DbgConfig(USB,  FATAL);
+    MOD1_PRINT(INFO,  "test\n");
+    MOD1_PRINT(DEBUG, "^g^test\n");
+    MOD1_PRINT(WARN,  "^y^test\n");
+    MOD1_PRINT(ALARM, "^y^test\n");
+    MOD1_PRINT(ERROR, "^r^test\n");
+    MOD1_PRINT(FATAL, "^r^test\n");
+    MOD1_PRINT(FATAL, "^x^test\n");
 
-    I2C_PRINT(INFO,  "test\n");
-    I2C_PRINT(DEBUG, "^g^test\n");
-    I2C_PRINT(WARN,  "^y^test\n");
-    I2C_PRINT(ALARM, "^y^test\n");
-    I2C_PRINT(ERROR, "^r^test\n");
-    I2C_PRINT(FATAL, "^r^test\n");
-    I2C_PRINT(FATAL, "^x^test\n");
+    MOD2_PRINT(INFO,  "test\n");
+    MOD2_PRINT(DEBUG, "^b^test\n");
+    MOD2_PRINT(WARN,  "^p^test\n");
+    MOD2_PRINT(ALARM, "^p^test\n");
+    MOD2_PRINT(ERROR, "^c^test\n");
+    MOD2_PRINT(FATAL, "^c^test\n");
 
-    SPI_PRINT(INFO,  "test\n");
-    SPI_PRINT(DEBUG, "^b^test\n");
-    SPI_PRINT(WARN,  "^p^test\n");
-    SPI_PRINT(ALARM, "^p^test\n");
-    SPI_PRINT(ERROR, "^c^test\n");
-    SPI_PRINT(FATAL, "^c^test\n");
+    MOD4_PRINT(INFO,  "test\n");
+    MOD4_PRINT(DEBUG, "^a^test\n");
+    MOD4_PRINT(WARN,  "^a^test\n");
+    MOD4_PRINT(ALARM, "^k^test\n");
+    MOD4_PRINT(ERROR, "^k^test\n");
+    MOD4_PRINT(FATAL, "^k^test\n");
 
-    USB_PRINT(INFO,  "test\n");
-    USB_PRINT(DEBUG, "^a^test\n");
-    USB_PRINT(WARN,  "^a^test\n");
-    USB_PRINT(ALARM, "^k^test\n");
-    USB_PRINT(ERROR, "^k^test\n");
-    USB_PRINT(FATAL, "^k^test\n");
+    MOD3_PRINT(INFO,  "^g^level: %d\n", INFO);
+    MOD3_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
+    MOD3_PRINT(WARN,  "^r^level: %d\n", WARN);
+    MOD3_PRINT(ALARM, "^b^level: %d\n", ALARM);
+    MOD3_PRINT(ERROR, "^p^level: %d\n", ERROR);
+    MOD3_PRINT(FATAL, "^c^level: %d\n", FATAL);
 
-    USIF_PRINT(INFO,  "^g^level: %d\n", INFO);
-    USIF_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
-    USIF_PRINT(WARN,  "^r^level: %d\n", WARN);
-    USIF_PRINT(ALARM, "^b^level: %d\n", ALARM);
-    USIF_PRINT(ERROR, "^p^level: %d\n", ERROR);
-    USIF_PRINT(FATAL, "^c^level: %d\n", FATAL);
+    DbgConfig(MOD1, NONE);
+    DbgConfig(MOD2, NONE);
+    DbgConfig(MOD3, NONE);
+    DbgConfig(MOD4, NONE);
 
-    DbgConfig(I2C,  NONE);
-    DbgConfig(SPI,  NONE);
-    DbgConfig(USIF, NONE);
-    DbgConfig(USB,  NONE);
+    MOD1_PRINT(INFO,  "test, should not print!\n");
+    MOD1_PRINT(DEBUG, "^g^test, should not print!\n");
+    MOD1_PRINT(WARN,  "^y^test, should not print!\n");
+    MOD1_PRINT(ALARM, "^y^test, should not print!\n");
+    MOD1_PRINT(ERROR, "^r^test, should not print!\n");
+    MOD1_PRINT(FATAL, "^r^test, should not print!\n");
 
-    I2C_PRINT(INFO,  "test, should not print!\n");
-    I2C_PRINT(DEBUG, "^g^test, should not print!\n");
-    I2C_PRINT(WARN,  "^y^test, should not print!\n");
-    I2C_PRINT(ALARM, "^y^test, should not print!\n");
-    I2C_PRINT(ERROR, "^r^test, should not print!\n");
-    I2C_PRINT(FATAL, "^r^test, should not print!\n");
+    DbgConfig(MOD1, INFO);
+    DbgConfig(MOD2, WARN);
+    DbgConfig(MOD3, DEBUG);
+    DbgConfig(MOD4, FATAL);
 
-    DbgConfig(I2C,  INFO);
-    DbgConfig(SPI,  WARN);
-    DbgConfig(USIF, DEBUG);
-    DbgConfig(USB,  FATAL);
+    MOD1_PRINT(INFO,  "test\n");
+    MOD1_PRINT(DEBUG, "^g^test\n");
+    MOD1_PRINT(WARN,  "^y^test\n");
+    MOD1_PRINT(ALARM, "^y^test\n");
+    MOD1_PRINT(ERROR, "^r^test\n");
+    MOD1_PRINT(FATAL, "^r^test\n");
 
-    I2C_PRINT(INFO,  "test\n");
-    I2C_PRINT(DEBUG, "^g^test\n");
-    I2C_PRINT(WARN,  "^y^test\n");
-    I2C_PRINT(ALARM, "^y^test\n");
-    I2C_PRINT(ERROR, "^r^test\n");
-    I2C_PRINT(FATAL, "^r^test\n");
+    MOD2_PRINT(INFO,  "test\n");
+    MOD2_PRINT(DEBUG, "^b^test\n");
+    MOD2_PRINT(WARN,  "^p^test\n");
+    MOD2_PRINT(ALARM, "^p^test\n");
+    MOD2_PRINT(ERROR, "^c^test\n");
+    MOD2_PRINT(FATAL, "^c^test\n");
 
-    SPI_PRINT(INFO,  "test\n");
-    SPI_PRINT(DEBUG, "^b^test\n");
-    SPI_PRINT(WARN,  "^p^test\n");
-    SPI_PRINT(ALARM, "^p^test\n");
-    SPI_PRINT(ERROR, "^c^test\n");
-    SPI_PRINT(FATAL, "^c^test\n");
+    MOD4_PRINT(INFO,  "test\n");
+    MOD4_PRINT(DEBUG, "^a^test\n");
+    MOD4_PRINT(WARN,  "^a^test\n");
+    MOD4_PRINT(ALARM, "^^test\n");
+    MOD4_PRINT(ERROR, "^ ^test\n");
+    MOD4_PRINT(FATAL, "^  ^test\n");
+    MOD4_PRINT(FATAL, "!test\n");
 
-    USB_PRINT(INFO,  "test\n");
-    USB_PRINT(DEBUG, "^a^test\n");
-    USB_PRINT(WARN,  "^a^test\n");
-    USB_PRINT(ALARM, "^^test\n");
-    USB_PRINT(ERROR, "^ ^test\n");
-    USB_PRINT(FATAL, "^  ^test\n");
-    USB_PRINT(FATAL, "!test\n");
+    MOD3_PRINT(INFO,  "^g^level: %d\n", INFO);
+    MOD3_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
+    MOD3_PRINT(WARN,  "^r^level: %d\n", WARN);
+    MOD3_PRINT(ALARM, "^b^level: %d\n", ALARM);
+    MOD3_PRINT(ERROR, "^p^level: %d\n", ERROR);
+    MOD3_PRINT(FATAL, "^c^level: %d\n", FATAL);
 
-    USIF_PRINT(INFO,  "^g^level: %d\n", INFO);
-    USIF_PRINT(DEBUG, "^y^level: %d\n", DEBUG);
-    USIF_PRINT(WARN,  "^r^level: %d\n", WARN);
-    USIF_PRINT(ALARM, "^b^level: %d\n", ALARM);
-    USIF_PRINT(ERROR, "^p^level: %d\n", ERROR);
-    USIF_PRINT(FATAL, "^c^level: %d\n", FATAL);
-
-    DbgConfig(I2C,  NONE);
-    DbgConfig(SPI,  NONE);
-    DbgConfig(USIF, NONE);
-    DbgConfig(USB,  NONE);
+    DbgConfig(MOD1, NONE);
+    DbgConfig(MOD2, NONE);
+    DbgConfig(MOD3, NONE);
+    DbgConfig(MOD4, NONE);
 
     return 0;
 }

@@ -11,16 +11,13 @@
 
 #include "common.h"
 #include "debug.h"
-#include "driver.h"
 
 #define DBG_BUFFER_SIZE 1024
 #define BIT_SET(pos) (1<<pos)
 
 /* define a print ptr
  */
-#if 0
-typedef void (*PRT_FUNC_PTR)(FILE *stream, const char *fmt, ...);
-#endif
+typedef void (*PRT_FUNC_PTR)(const char *fmt, ...);
 
 /* add color here
  */
@@ -45,10 +42,10 @@ static const char *clrStrings[] = {
 dbgInfo_t gDbgInfo[] = {
     /* group_id,    dbg_level,  group_name */
     {GRP_START,     NONE,       NULL},
-    {I2C,           NONE,       "I2C"},
-    {SPI,           NONE,       "SPI"},
-    {USIF,          NONE,       "USIF"},
-    {USB,           NONE,       "USB"},
+    {MOD1,          NONE,       "MOD1"},
+    {MOD2,          NONE,       "MOD2"},
+    {MOD3,          NONE,       "MOD3"},
+    {MOD4,          NONE,       "MOD4"},
     {GRP_END,       NONE,       NULL}
 };
 #define DBG_INFO_SIZE (sizeof(gDbgInfo) / sizeof(gDbgInfo[0]))
@@ -64,10 +61,9 @@ static BOOL DbgIsPrintEnable(dbgGrp_e grp, dbgLevel_e level)
     return ((grp == gDbgInfo[grp].grpId) && (level <= gDbgInfo[grp].level)) ? TRUE : FALSE;
 }
 
-static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list args)
+static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 {
     char	dbgBuf[DBG_BUFFER_SIZE];    /* use static memory */
-    char	printBuf[DBG_BUFFER_SIZE];    /* use static memory */
     int		count = 0;
     static const char	*color1 = (char *)"";
     static const char	*color2 = (char *)"";
@@ -76,7 +72,7 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
      * eg.
      * (PRT_FUNC_PTR)my_printf;
      */
-    PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)fprintf;
+    PRT_FUNC_PTR pFunc = (PRT_FUNC_PTR)printf;
 
     if(*format == '!')  return 0;
 
@@ -111,34 +107,23 @@ static int DBGvsprint(dbgGrp_e grp, FILE *stream, const char *format, va_list ar
         }
 
         count = vsnprintf(&dbgBuf[0], DBG_BUFFER_SIZE-14, format, args);
-        /* TODO:: need call general write function
-         * 1. function ptr to real driver
-         */
-#if 0
-        (*pFunc)(stream, "%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBuf, color2);
-#else
-        snprintf(printBuf, strlen(dbgBuf)+strlen(color1)+strlen(color2)+strlen(gDbgInfo[grp].grpName), "%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBuf, color2);
-
-#endif
+        (*pFunc)("%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBuf, color2);
     }
     else
     {
         count = vsnprintf(&dbgBuf[0], DBG_BUFFER_SIZE-14, format, args);
-        /* TODO:: need call general write function
-         * 1. function ptr to real driver
-         */
-        (*pFunc)(stream, "[%s] %s", gDbgInfo[grp].grpName, dbgBuf);
+        (*pFunc)("[%s] %s", gDbgInfo[grp].grpName, dbgBuf);
     }
 
     return count;
 }
 
-static int va_aprintOn(dbgGrp_e grp, FILE *stream, const char *fmt, va_list args)
+static int va_aprintOn(dbgGrp_e grp, const char *fmt, va_list args)
 {
-    return DBGvsprint(grp, stream, fmt, args);
+    return DBGvsprint(grp, fmt, args);
 }
 
-int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt, ...)
+int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, const char *fmt, ...)
 {
     int count = 0;
 
@@ -147,7 +132,7 @@ int DbgPrintColor(dbgGrp_e grp, dbgLevel_e level, FILE *stream, const char *fmt,
         va_list args;
 
         va_start(args, fmt);
-        count = va_aprintOn(grp, stream, fmt, args);
+        count = va_aprintOn(grp, fmt, args);
         va_end(args);
     }
 
