@@ -17,6 +17,7 @@ int DrvCommInit(int **fd, drv_t device)
             break;
 
         default:
+            *fd = NULL;
             break;
     }
 
