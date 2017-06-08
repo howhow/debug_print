@@ -16,16 +16,15 @@ x86_64
 3. leveled print, easy to control
 
 ## TODO
-Split print to different target
+1. Split print to different target
+2. Demo link list
 
 ## How to use
 #### 1. Display Debug output
-- make DEBUG=YES && make test
-or
+- make DEBUG=YES && make test, or
 - ./post_test.sh DEBUG=YES
 #### 2. Perform code coverage
 make DEBUG=YES && make test && make testcov
 #### 3. Remove debug print
-- just remove **DEBUG=YES** during make
-or
+- just remove **DEBUG=YES** during make, or
 - configure in code by function **DbgConfig(group, level)**
