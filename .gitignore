@@ -13,7 +13,7 @@
 *.gcno
 
 # self shell script
-*.sh
+#*.sh
 
 # vim swp file
 *.swp
