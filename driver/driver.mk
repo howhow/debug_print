@@ -33,6 +33,7 @@ SRC_FILES += uart.c
 # add include search path
 INC_PATH =
 INC_PATH += $(TOP_DIR)/include
+INC_PATH += $(TOP_DIR)/debug
 INC_PATH += $(TOP_DIR)/$(MODULE)
 INC_PATH += $(TOP_DIR)/$(MODULE)/local
 INC_PATH += $(TOP_DIR)/$(MODULE)/uart

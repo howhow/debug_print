@@ -13,7 +13,7 @@ int DrvCommInit(int **fd, drv_t device)
             break;
 
         case uart:
-            //result = UartDriverCommInit((drvComm_t **)fd);
+            result = UartDrvInit((drvComm_t **)fd);
             break;
 
         default:
@@ -27,6 +27,11 @@ int DrvCommWrite(int *fd, char *buf, size_t len)
 {
     int result = -1;
 
+    if(fd == NULL)
+    {
+        return result;
+    }
+
     result = ((drvComm_t *)fd)->drvWrite(buf, len);
 
     return result;
@@ -35,6 +40,11 @@ int DrvCommWrite(int *fd, char *buf, size_t len)
 int DrvCommClose(int *fd)
 {
     int result = -1;
+    
+    if(fd == NULL)
+    {
+        return result;
+    }
 
     result = ((drvComm_t *)fd)->drvClose();
 

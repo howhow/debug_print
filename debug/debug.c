@@ -42,8 +42,8 @@ static const char *clrStrings[] = {
 dbgInfo_t gDbgInfo[] = {
     /* group_id,    dbg_level,  group_name */
     {GRP_START,     NONE,       NULL},
-    {MOD1,          NONE,       "MOD1"},
-    {MOD2,          NONE,       "MOD2"},
+    {LOCAL,         NONE,       "LOCAL"},
+    {UART,          NONE,       "UART"},
     {MOD3,          NONE,       "MOD3"},
     {MOD4,          NONE,       "MOD4"},
     {GRP_END,       NONE,       NULL}
