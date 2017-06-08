@@ -8,9 +8,10 @@ x86_64
 ## Purpose
 1. study how to impelmente debug print method
 2. study makefile
+3. study coding with vim/cscope
 
 ## Feature
-1. split print to stdout and stderr, easy to filter
+1. split print to different module, easy to filter
 2. colored print, easy to identify
 3. leveled print, easy to control
 
@@ -19,9 +20,12 @@ Split print to different target
 
 ## How to use
 #### 1. Display Debug output
-make DEBUG=YES && make test
+- make DEBUG=YES && make test
+or
+- ./post_test.sh DEBUG=YES
 #### 2. Perform code coverage
 make DEBUG=YES && make test && make testcov
 #### 3. Remove debug print
 - just remove **DEBUG=YES** during make
+or
 - configure in code by function **DbgConfig(group, level)**
