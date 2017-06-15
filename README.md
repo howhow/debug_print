@@ -6,6 +6,7 @@ x86_64
 [![Coverage Status](https://coveralls.io/repos/github/howhow/debug_print/badge.svg?branch=master)](https://coveralls.io/github/howhow/debug_print?branch=master)
 
 ## Purpose
+Use code to demo a color print function for debug use, meanwhile, show how to setup a easy development way under Linux with VIM, makefile and shell script
 1. study how to impelmente debug print method under Linux
 2. study makefile
 3. study coding with vim/cscope/YCM
