@@ -15,8 +15,9 @@
 # self shell script
 #*.sh
 
-# vim swp file
+# vim file
 *.swp
+*.pyc
 
 # cscope file
 *.files
