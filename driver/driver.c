@@ -41,7 +41,7 @@ int DrvCommWrite(int *fd, char *buf, size_t len)
 int DrvCommClose(int *fd)
 {
     int result = -1;
-    
+
     if(fd == NULL)
     {
         return result;

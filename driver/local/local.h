@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "common.h" 
+#include "common.h"
 #include "driver.h"
 
 int localWrite(char *buf, size_t len);

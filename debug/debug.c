@@ -1,12 +1,12 @@
 /*	@file debug.c
- *	
+ *
  *	Main start point
  *
  *	@Author:	How.Chen
  *	@Version:	3.0
  *	@Date:		9th/Jan/2017
  *	@Note:		- V2.0, add debug print color
- *	            - V3.0, add debug component	            
+ *	            - V3.0, add debug component
  */
 
 #include "common.h"
