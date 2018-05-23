@@ -56,6 +56,7 @@ check:
 	@echo "enabled features: $(FEATURE)"
 	@echo "cc defines: $(CC_DEFINE)"
 	@echo "cc include: $(CC_INC_PATH)"
+	@echo ""
 
 testcov:
 	cd $(OUTS) && \
