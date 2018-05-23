@@ -1,14 +1,14 @@
-/*	@file Main.c
+/*  @file Main.c
  *
- *	Main start point
+ *  Main start point
  *
- *	@Author:	How.Chen
- *	@Version:	3.0
- *	@Date:		9th/Jan/2016
- *	@Note:		- V2.0, add thread
- *	            - V3.0, remove thread
- *	            add debug config
- *	            add debug print
+ *  @Author:    How.Chen
+ *  @Version:   3.0
+ *  @Date:      9th/Jan/2016
+ *  @Note:      - V2.0, add thread
+ *              - V3.0, remove thread
+ *              add debug config
+ *              add debug print
  */
 
 #include <stdio.h>
@@ -25,8 +25,8 @@
 #define TEST_STR3 "test MOD3 driver"
 
 /* Example to use DBG print for each component */
-#define MOD3_PRINT(level, fmt, args...)  DBG_PRINT(MOD3, level, fmt, ##args) 
-#define MOD4_PRINT(level, fmt, args...)  DBG_PRINT(MOD4, level, fmt, ##args) 
+#define MOD3_PRINT(level, fmt, args...)  DBG_PRINT(MOD3, level, fmt, ##args)
+#define MOD4_PRINT(level, fmt, args...)  DBG_PRINT(MOD4, level, fmt, ##args)
 
 int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
 {

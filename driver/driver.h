@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "common.h" 
+#include "common.h"
 
 typedef int (*drvWrite_t)(char *buff, size_t len);
 typedef int (*drvClose_t)(void);

@@ -24,7 +24,7 @@ int localClose(void)
     localDrv.drvName = NULL;
     localDrv.drvWrite = NULL;
     localDrv.drvClose = NULL;
-    
+
     LOCAL_PRINT(INFO, "Local driver closed\n\n");
 
     localTestClose();
@@ -41,9 +41,9 @@ int LocalTerminalInit(drvComm_t **fd)
     *fd = &localDrv;
 
     localTestStart();
-    
+
     LOCAL_PRINT(INFO, "Driver init: %s\n", localDrv.drvName);
-    
+
     return 0;
 }
 
@@ -62,7 +62,7 @@ static void localTest(void)
     LOCAL_PRINT(ERROR, "^r^test\n");
     LOCAL_PRINT(FATAL, "^r^test\n");
     LOCAL_PRINT(FATAL, "^x^test\n");
-    
+
     DbgConfig(LOCAL, NONE);
     LOCAL_PRINT(INFO,  "test, should not print!\n");
     LOCAL_PRINT(DEBUG, "^g^test, should not print!\n");

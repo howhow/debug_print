@@ -6,9 +6,10 @@ x86_64
 [![Coverage Status](https://coveralls.io/repos/github/howhow/debug_print/badge.svg?branch=master)](https://coveralls.io/github/howhow/debug_print?branch=master)
 
 ## Purpose
-1. study how to impelmente debug print method
+Use code to demo a color print function for debug use, meanwhile, show how to setup a easy development way under Linux with VIM, makefile and shell script
+1. study how to impelmente debug print method under Linux
 2. study makefile
-3. study coding with vim/cscope
+3. study coding with vim/cscope/YCM
 
 ## Feature
 1. split print to different module, easy to filter
@@ -16,8 +17,9 @@ x86_64
 3. leveled print, easy to control
 
 ## TODO
-1. Split print to different target
-2. Demo link list
+1. Automatically detect OS arch in Makefile
+2. Delivery debug print function as a LIB
+3. Demo link list
 
 ## How to use
 #### 1. Display Debug output

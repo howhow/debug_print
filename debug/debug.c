@@ -1,12 +1,12 @@
 /*	@file debug.c
- *	
+ *
  *	Main start point
  *
  *	@Author:	How.Chen
  *	@Version:	3.0
  *	@Date:		9th/Jan/2017
  *	@Note:		- V2.0, add debug print color
- *	            - V3.0, add debug component	            
+ *	            - V3.0, add debug component
  */
 
 #include "common.h"
@@ -65,8 +65,6 @@ static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 {
     char	dbgBuf[DBG_BUFFER_SIZE];    /* use static memory */
     int		count = 0;
-    static const char	*color1 = (char *)"";
-    static const char	*color2 = (char *)"";
 
     /* Also can link to self-print function
      * eg.
@@ -80,6 +78,8 @@ static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 
     if((format[0] == '^') && (format[2] == '^'))
     {
+        static const char	*color1 = (char *)"";
+        static const char	*color2 = (char *)"";
         int colorIndex = -1;
         switch(format[1])
         {

@@ -1,23 +1,23 @@
 /**
- *	@file debug.h
+ *  @file debug.h
  *
- *	Main start point
+ *  Main start point
  *
- *	@Author:	How.Chen
- *	@Version:	1.0
- *	@Date:		25th/Jan/2017
- *	@Note:
- *	            - V0.1:
- *	            - init version
+ *  @Author:    How.Chen
+ *  @Version:   1.0
+ *  @Date:      25th/Jan/2017
+ *  @Note:
+ *              - V0.1:
+ *              - init version
  *
- *	            - V0.9a:
- *	            - add demo structure
+ *              - V0.9a:
+ *              - add demo structure
  *
- *	            - V1.0:
- *	            - split debug build
- *	            - print info to stdout/err
- *	            - naming convention update
- *	            - group debug info together
+ *              - V1.0:
+ *              - split debug build
+ *              - print info to stdout/err
+ *              - naming convention update
+ *              - group debug info together
  */
 #ifndef _DEBUG_H_
 #define _DEBUG_H_

@@ -17,6 +17,7 @@ int DrvCommInit(int **fd, drv_t device)
             break;
 
         default:
+            *fd = NULL;
             break;
     }
 
@@ -40,7 +41,7 @@ int DrvCommWrite(int *fd, char *buf, size_t len)
 int DrvCommClose(int *fd)
 {
     int result = -1;
-    
+
     if(fd == NULL)
     {
         return result;
