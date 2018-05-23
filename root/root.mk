@@ -21,7 +21,9 @@ MOD_LIB = $(LIB_PREFIX)$(MODULE).$(LIB_POSTFIX)
 
 
 CC_DEFS :=
-# modify sys-make/config/build.config to control
+ifeq '$(filter FEATURE_3, $(FEATURE))' 'FEATURE_3'
+	CC_DEFS += C_DEF_3
+endif
 
 # add srouce files, which would like to compile
 SRC_FILES =
@@ -38,6 +40,7 @@ SRC_PATH =
 SRC_PATH += $(TOP_DIR)/$(MODULE)
 
 vpath %.c $(SRC_PATH)
+vpath %.h $(INC_PATH)
 
 # use general compiler and compile rules
 include $(MKFILE_DIR)/gcc.mk

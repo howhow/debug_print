@@ -20,15 +20,16 @@ MODULE = driver
 MOD_LIB = $(LIB_PREFIX)$(MODULE).$(LIB_POSTFIX)
 
 
-# modify sys-make/config/build.config to control
 CC_DEFS :=
+ifeq '$(filter FEATURE_2, $(FEATURE))' 'FEATURE_2'
+	CC_DEFS += C_DEF_2
+endif
 
 # add srouce files, which would like to compile
 SRC_FILES =
 SRC_FILES += driver.c
 SRC_FILES += local.c
 SRC_FILES += uart.c
-# modify sys-make/config/build.config to control
 
 # add include search path
 INC_PATH =
@@ -45,6 +46,7 @@ SRC_PATH += $(TOP_DIR)/$(MODULE)/local
 SRC_PATH += $(TOP_DIR)/$(MODULE)/uart
 
 vpath %.c $(SRC_PATH)
+vpath %.h $(INC_PATH)
 
 # use general compiler and compile rules
 include $(MKFILE_DIR)/gcc.mk
