@@ -43,7 +43,7 @@ int main(/*@ unused @*/int argc, /*@ unused @*/char *argv[])
     DrvCommWrite(fd_uart, (char *)TEST_STR2, strlen(TEST_STR2));
     DrvCommClose(fd_uart);
 
-    DrvCommInit(&fd_mod3, MOD3);
+    DrvCommInit(&fd_mod3, mod3);
     DrvCommWrite(fd_mod3, (char *)TEST_STR2, strlen(TEST_STR2));
     DrvCommClose(fd_mod3);
 
