@@ -26,11 +26,6 @@
 extern "C" {
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
 #include "common.h"
 
 /* add own debug group here
