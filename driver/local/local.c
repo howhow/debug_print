@@ -9,7 +9,7 @@ static void localTestStart(void);
 static void localTest(void);
 static void localTestClose(void);
 
-int localWrite(char *buf, size_t len)
+int localWrite(char *buf, UINT32 len)
 {
     LOCAL_PRINT(INFO, "Write buffer: %s\n", buf);
     LOCAL_PRINT(INFO, "Buffer size: %d\n", len);

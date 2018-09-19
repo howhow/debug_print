@@ -1,14 +1,20 @@
-/*	@file debug.c
+/* @file debug.c
  *
- *	Main start point
+ * Main start point
  *
- *	@Author:	How.Chen
- *	@Version:	3.0
- *	@Date:		9th/Jan/2017
- *	@Note:		- V2.0, add debug print color
- *	            - V3.0, add debug component
+ * @Author:     How.Chen
+ * @Version:    3.0
+ * @Date:       9th/Jan/2017
+ * @Note:       - V2.0, add debug print color
+ *              - V3.0, add debug component
  */
 
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdarg.h>
 #include "common.h"
 #include "debug.h"
 
@@ -63,8 +69,8 @@ static BOOL DbgIsPrintEnable(dbgGrp_e grp, dbgLevel_e level)
 
 static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 {
-    char	dbgBuf[DBG_BUFFER_SIZE];    /* use static memory */
-    int		count = 0;
+    char    dbgBuf[DBG_BUFFER_SIZE];    /* use static memory */
+    int     count = 0;
 
     /* Also can link to self-print function
      * eg.
@@ -78,8 +84,8 @@ static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
 
     if((format[0] == '^') && (format[2] == '^'))
     {
-        static const char	*color1 = (char *)"";
-        static const char	*color2 = (char *)"";
+        static const char *color1 = (char *)"";
+        static const char *color2 = (char *)"";
         int colorIndex = -1;
         switch(format[1])
         {

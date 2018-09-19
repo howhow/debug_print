@@ -6,7 +6,7 @@ extern "C" {
 #endif
 #include "common.h"
 
-typedef int (*drvWrite_t)(char *buff, size_t len);
+typedef int (*drvWrite_t)(char *buff, UINT32 len);
 typedef int (*drvClose_t)(void);
 
 typedef struct
@@ -25,7 +25,7 @@ typedef enum
 }drv_t;
 
 int DrvCommInit(int **fd, drv_t device);
-int DrvCommWrite(int *fd, char *buf, size_t len);
+int DrvCommWrite(int *fd, char *buf, UINT32 len);
 int DrvCommClose(int *fd);
 
 #ifdef __cplusplus

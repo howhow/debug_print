@@ -1,3 +1,4 @@
+#include "common.h"
 #include "driver.h"
 #include "local.h"
 #include "uart.h"
@@ -24,7 +25,7 @@ int DrvCommInit(int **fd, drv_t device)
     return result;
 }
 
-int DrvCommWrite(int *fd, char *buf, size_t len)
+int DrvCommWrite(int *fd, char *buf, UINT32 len)
 {
     int result = -1;
 

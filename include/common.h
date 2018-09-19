@@ -14,15 +14,16 @@
 extern "C" {
 #endif
 
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdarg.h>
+//#include <stdlib.h>
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <unistd.h>
+//#include <string.h>
+//#include <stdarg.h>
 
 #define __FUNC__    __FUNCTION__
 #define __L__       __LINE__
+#define __F__       __FILE__
 
 #ifndef UINT8
 typedef unsigned char   __UINT8;
@@ -49,6 +50,10 @@ typedef int     __BOOL;
 #define BOOL    __BOOL
 #define TRUE    1
 #define FALSE   0
+#endif
+
+#ifndef NULL
+#define NULL ((void*)0)
 #endif
 
 #ifdef __cplusplus

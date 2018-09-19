@@ -9,7 +9,7 @@ static void uartTestStart(void);
 static void uartTest(void);
 static void uartTestClose(void);
 
-int uartWrite(char *buf, size_t len)
+int uartWrite(char *buf, UINT32 len)
 {
     UART_PRINT(INFO, "Write buffer: %s\n", buf);
     UART_PRINT(INFO, "Buffer size: %d\n", len);
@@ -24,7 +24,7 @@ int uartClose(void)
     uartDrv.drvName = NULL;
     uartDrv.drvWrite = NULL;
     uartDrv.drvClose = NULL;
-    
+
     UART_PRINT(INFO, "Local driver closed\n\n");
 
     uartTestClose();
@@ -41,9 +41,9 @@ int UartDrvInit(drvComm_t **fd)
     *fd = &uartDrv;
 
     uartTestStart();
-    
+
     UART_PRINT(INFO, "Driver init: %s\n", uartDrv.drvName);
-    
+
     return 0;
 }
 
@@ -62,7 +62,7 @@ static void uartTest(void)
     UART_PRINT(ERROR, "^r^test\n");
     UART_PRINT(FATAL, "^r^test\n");
     UART_PRINT(FATAL, "^x^test\n");
-    
+
     DbgConfig(UART, NONE);
     UART_PRINT(INFO,  "test, should not print!\n");
     UART_PRINT(DEBUG, "^g^test, should not print!\n");

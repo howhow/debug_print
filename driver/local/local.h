@@ -8,7 +8,7 @@ extern "C" {
 #include "common.h"
 #include "driver.h"
 
-int localWrite(char *buf, size_t len);
+int localWrite(char *buf, UINT32 len);
 int localClose(void);
 int LocalTerminalInit(drvComm_t **fd);
 
