@@ -12,8 +12,13 @@
 *.gcov
 *.gcno
 
+# profiling file
+*.out.*
+
 # self shell script
-#*.sh
+*.sh
+*.pl
+
 
 # vim file
 *.swp
