@@ -91,20 +91,14 @@ static int DBGvsprint(dbgGrp_e grp, const char *format, va_list args)
             case 'p': colorIndex = 5; break;
             case 'c': colorIndex = 6; break;
             case 'a': colorIndex = 7; break;
+            case ' ': colorIndex = 7; break;
             default:
-                      colorIndex = 0; break;
+                      colorIndex = 8; break;
         }
 
-        if(colorIndex >= 0)
-        {
-            if(format[1] == ' ')
-            {
-                colorIndex += 8;
-            }
-            format += 3;
-            color1 = clrStrings[colorIndex];
-            color2 = clrStrings[8];
-        }
+        format += 3;
+        color1 = clrStrings[colorIndex];
+        color2 = clrStrings[8];
 
         count = vsnprintf(&dbgBuf[0], DBG_BUFFER_SIZE-14, format, args);
         (*pFunc)("%s[%s] %s%s", color1, gDbgInfo[grp].grpName, dbgBuf, color2);
