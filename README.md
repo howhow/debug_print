@@ -28,5 +28,5 @@ Use code to demo a color print function for debug use, meanwhile, show how to se
 #### 2. Perform code coverage
 make DEBUG=YES && make test && make testcov
 #### 3. Remove debug print
-- just remove **DEBUG=YES** during make, or
-- configure in code by function **DbgConfig(group, level)**
+- just remove `DEBUG=YES` during make, or
+- configure in code by function `DbgConfig(group, level)`
