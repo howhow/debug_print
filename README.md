@@ -23,8 +23,8 @@ Use code to demo a color print function for debug use, meanwhile, show how to se
 
 ## How to use
 #### 1. Display Debug output
-- make DEBUG=YES && make test, or
-- ./post_test.sh DEBUG=YES
+- `make DEBUG=YES && make test` or
+- `./post_test.sh DEBUG=YES`
 #### 2. Perform code coverage
 make DEBUG=YES && make test && make testcov
 #### 3. Remove debug print
