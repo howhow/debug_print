@@ -3,6 +3,8 @@
 #include "local.h"
 #include "uart.h"
 
+typedef int (*deviceInit_fp)(drvComm_t ** fd);
+
 int DrvCommInit(int **fd, drv_t device)
 {
     int result = -1;

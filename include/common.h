@@ -1,11 +1,12 @@
-/*	@file common.h
+/*    @file common.h
  *
- *	Main start point
+ *    Main start point
  *
- *	@Author:	How.Chen
- *	@Version:	2.0
- *	@Date:		19th/June/2012
- *	@Note:		At V2.0, add common typedef
+ *    @Author:    How.Chen
+ *    @Version:   2.0
+ *    @Date:      19th/June/2012
+ *    @History    When        Who     What
+ *                05/11/2018  how     remove header file
  */
 #ifndef _COMMON_H_
 #define _COMMON_H_
@@ -13,13 +14,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-//#include <stdlib.h>
-//#include <stdint.h>
-//#include <stdio.h>
-//#include <unistd.h>
-//#include <string.h>
-//#include <stdarg.h>
 
 #define __FUNC__    __FUNCTION__
 #define __L__       __LINE__

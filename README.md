@@ -19,7 +19,7 @@ Use code to demo a color print function for debug use, meanwhile, show how to se
 ## TODO
 1. Automatically detect OS arch in Makefile
 2. Delivery debug print function as a LIB
-3. Demo link list
+3. Optimize code
 
 ## How to use
 #### 1. Display Debug output

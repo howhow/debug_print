@@ -7,6 +7,8 @@
  * @Date:       9th/Jan/2017
  * @Note:       - V2.0, add debug print color
  *              - V3.0, add debug component
+ * @Hitory:     Date        Who     Conente
+ *              01/11/2018  how     move header file only for debug component
  */
 
 #include <stdlib.h>
